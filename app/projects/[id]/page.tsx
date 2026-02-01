@@ -4,17 +4,14 @@ import { Badge } from "@/components/ui/badge";
 import { Github, GlobeIcon, Figma } from "lucide-react";
 import { getProject } from "@/lib/supabase";
 import Image from "next/image";
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
 
 type Props = {
   params: Promise<{ id: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export async function generateMetadata(
-  { params, searchParams }: Props,
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
 
   // fetch post information
@@ -61,7 +58,7 @@ export default async function Page({
               {project.title}
             </h1>
             <ul className="flex gap-2">
-              {project.technologies.map((badge, i) => (
+              {project.technologies.map((badge: string, i: number) => (
                 <Badge
                   key={`tech-badge-${badge}-${i}`}
                   variant={"secondary"}
@@ -95,29 +92,34 @@ export default async function Page({
               id="gallery-wrapper"
               className="md:grid flex flex-col md:grid-cols-2 lg:grid-cols-3 gap-5  w-full m-auto"
             >
-              {project.images.map((image, i) => {
-                const length = project.images.length;
-                const last = project.images.length - 1;
-                const classStyles =
-                  i % 3 == 0
-                    ? "aspect-7/5 col-span-2"
-                    : "aspect-4/5 lg:aspect-auto col-span-1";
+              {project.images.map(
+                (
+                  image: { href: string; title: string; index: number },
+                  i: number,
+                ) => {
+                  const length = project.images.length;
+                  const last = project.images.length - 1;
+                  const classStyles =
+                    i % 3 == 0
+                      ? "aspect-7/5 col-span-2"
+                      : "aspect-4/5 lg:aspect-auto col-span-1";
 
-                return (
-                  <div
-                    key={project.title + " " + image.index}
-                    className={`w-full overflow-hidden flex content-center items-center bg-gray-500 rounded-md ${classStyles}`}
-                  >
-                    <Image
-                      src={image.href}
-                      width={1080}
-                      height={1080}
-                      alt={project.title + " " + image.index}
-                      className="object-cover h-full"
-                    />
-                  </div>
-                );
-              })}
+                  return (
+                    <div
+                      key={project.title + " " + image.index}
+                      className={`w-full overflow-hidden flex content-center items-center bg-gray-500 rounded-md ${classStyles}`}
+                    >
+                      <Image
+                        src={image.href}
+                        width={1080}
+                        height={1080}
+                        alt={project.title + " " + image.index}
+                        className="object-cover h-full"
+                      />
+                    </div>
+                  );
+                },
+              )}
             </div>
           </div>
         </StyledWindowWrapper>

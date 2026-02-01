@@ -88,7 +88,7 @@ export function ContactForm() {
 
     setIsSubmitting(true);
     try {
-      const res = await axios.post("/api/messages", values);
+      await axios.post("/api/messages", values);
 
       // TODO: Replace with your submission logic (API route, server action, etc.)
       // await fetch("/api/contact", { method: "POST", body: JSON.stringify(values) });
