@@ -67,13 +67,21 @@ export function ContactForm() {
 
   function validateAll(nextValues: ContactFormValues) {
     const parsed = contactFormSchema.safeParse(nextValues);
-    if (parsed.success) return { ok: true as const, errors: {} as FieldErrors };
+
+    if (parsed.success) {
+      return { ok: true as const, errors: {} as FieldErrors };
+    }
 
     const fieldErrors: FieldErrors = {};
+
     for (const issue of parsed.error.issues) {
       const field = issue.path[0] as keyof ContactFormValues | undefined;
-      if (field && !fieldErrors[field]) fieldErrors[field] = issue.body;
+
+      if (field && !fieldErrors[field]) {
+        fieldErrors[field] = issue.message; // ✅ ZodIssue has `message`
+      }
     }
+
     return { ok: false as const, errors: fieldErrors };
   }
 
