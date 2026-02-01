@@ -1,6 +1,16 @@
 import React from "react";
 
-export const Section = ({ children, className = "", ...props }) => {
+type SectionProps = {
+  children: React.ReactNode;
+  className?: string;
+  id?: string;
+};
+
+export const Section = ({
+  children,
+  className = "",
+  ...props
+}: SectionProps) => {
   return (
     <section
       className={`md:px-[8%] p-6 py-10 box-border w-full h-full lg:text-left text-center m-auto ${className}`}
