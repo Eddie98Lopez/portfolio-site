@@ -40,3 +40,16 @@ export const getProject = cache(async (id: string) => {
 
   return { ...project[0], images };
 });
+
+export const getAllProjects = async () => {
+  const { data: projects, error } = await supabasePublic
+    .from("projects")
+    .select("*")
+    .eq("display", true);
+
+  if (error) {
+    throw error;
+  }
+
+  return { projects };
+};
