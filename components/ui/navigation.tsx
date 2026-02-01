@@ -8,12 +8,30 @@ import { cn } from "@/lib/utils";
 import { usePathname, useParams } from "next/navigation";
 import { motion } from "motion/react";
 
+type NavigationWrapperProps = {
+  variant?: string;
+  className?: string;
+  children: React.ReactNode;
+};
+
+type NavLinkGroupProps = {
+  children: React.ReactNode;
+  isOpen: boolean;
+  setOpen: (isOpen: boolean) => void;
+  className?: string;
+};
+
+type NavHamburgerProps = {
+  isOpen: boolean;
+  setOpen: (isOpen: boolean) => void;
+  className?: string;
+};
+
 export const NavigationWrapper = ({
   variant = "default",
   className = "",
   children,
-}) => {
-  "use client";
+}: NavigationWrapperProps) => {
   return (
     <header
       id="main-navigation"
@@ -29,11 +47,16 @@ export const NavigationWrapper = ({
   );
 };
 
-export const NavLogo = ({ children }) => {
+export const NavLogo = ({ children }: { children: React.ReactNode }) => {
   return <div>{children}</div>;
 };
 
-export const NavLinkGroup = ({ children, isOpen, setOpen, className = "" }) => {
+export const NavLinkGroup = ({
+  children,
+  isOpen,
+  setOpen,
+  className = "",
+}: NavLinkGroupProps) => {
   return (
     <>
       <motion.div
@@ -80,7 +103,11 @@ export const NavLinkGroup = ({ children, isOpen, setOpen, className = "" }) => {
   );
 };
 
-export const NavHamburger = ({ isOpen, setOpen, className = "" }) => {
+export const NavHamburger = ({
+  isOpen,
+  setOpen,
+  className = "",
+}: NavHamburgerProps) => {
   return (
     <Button
       onClick={() => setOpen(!isOpen)}
