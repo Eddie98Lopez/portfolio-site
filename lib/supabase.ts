@@ -20,7 +20,7 @@ export const getFeaturedProjects = async () => {
   return { projects };
 };
 
-export const getProject = cache(async (id: number) => {
+export const getProject = cache(async (id: string) => {
   const { data: project, error: project_error } = await supabasePublic
     .from("projects")
     .select("*")
