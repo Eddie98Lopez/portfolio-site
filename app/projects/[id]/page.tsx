@@ -15,7 +15,7 @@ export async function generateMetadata(
   { params, searchParams }: Props,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  const id = (await params).id;
+  const { id } = await params;
 
   // fetch post information
   const project = await getProject(id);
