@@ -4,6 +4,14 @@ const supabaseUrl = "https://ldrjmzbrinwdylthbzry.supabase.co";
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
 const supabaseServerKey = process.env.SUPABASE_MESSAGE;
 
+if (!supabaseKey) {
+  throw new Error("Missing NEXT_PUBLIC_SUPABASE_KEY");
+}
+
+if (!supabaseServerKey) {
+  throw new Error("Missing SUPABASE_MESSAGE");
+}
+
 export const supabasePublic = createClient(supabaseUrl, supabaseKey);
 export const supabaseServer = createClient(supabaseUrl, supabaseServerKey);
 
