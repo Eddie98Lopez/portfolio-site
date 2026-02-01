@@ -15,6 +15,10 @@ export const TypewriterCarousel = ({
   duration = 5000,
   className = "",
   ...props
+}: {
+  phrases: string[];
+  duration?: number;
+  className?: string;
 }) => {
   const [text, setText] = useState(phrases[0]);
 
