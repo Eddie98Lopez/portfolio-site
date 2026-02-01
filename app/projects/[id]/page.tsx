@@ -57,7 +57,7 @@ export default async function Page({
             <h1 className="lg:text-[10rem] text-[5rem] leading-none">
               {project.title}
             </h1>
-            <ul className="flex gap-2">
+            <ul className="flex gap-2 flex-wrap">
               {project.technologies.map((badge: string, i: number) => (
                 <Badge
                   key={`tech-badge-${badge}-${i}`}
@@ -76,7 +76,7 @@ export default async function Page({
             <p className="whitespace-pre-wrap text-left">
               {project.description}
             </p>
-            <ul className="flex gap-2">
+            {/*             <ul className="flex gap-2">
               <li className="size-8 rounded-[500px] bg-secondary flex items-center content-center">
                 <GlobeIcon color="var(--primary,black)" className="m-auto" />
               </li>
@@ -86,7 +86,7 @@ export default async function Page({
               <li className="size-8 rounded-[500px] bg-secondary flex items-center content-center">
                 <GlobeIcon color="var(--primary,black)" className="m-auto" />
               </li>
-            </ul>
+            </ul> */}
 
             <div
               id="gallery-wrapper"
@@ -142,12 +142,6 @@ export default async function Page({
             </li>
           </ul>
         </div> */}
-      </Section>
-      <Section
-        id="project-image-gallery"
-        className="relative p-0 pb-0 pt-0 m-0 min-h-0 "
-      >
-        <div>Did ya like this project?</div>
       </Section>
     </div>
   );

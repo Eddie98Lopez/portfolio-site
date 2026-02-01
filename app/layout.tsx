@@ -6,6 +6,7 @@ import { Navigation } from "@/components/ui/navigation";
 import Footer from "@/components/ui/footer";
 import Link from "next/link";
 import Logo from "@/components/Logo";
+import { footer_menu } from "@/lib/nav-links";
 
 import SocialBar from "@/components/social-bar";
 
@@ -37,7 +38,7 @@ export default function RootLayout({
         <Navigation />
         {children}
         <Footer>
-          <div className="max-w-[1600px] w-full h-full flex flex-col m-auto content-center items-center lg:grid lg:grid-cols-2 gap-8">
+          <div className="max-w-[1600px] w-full h-full flex flex-col m-auto content-center items-center lg:grid lg:grid-cols-2 gap-16">
             <div className="order-1 flex gap-12 items-center ">
               <Logo className="w-30 h-auto" fill="white" />
               <div>
@@ -52,7 +53,21 @@ export default function RootLayout({
             <div className="order-3">
               <SocialBar />
             </div>
-            <div className="order-2 row-span-2">links</div>
+            <div className="order-2 row-span-2">
+              <ul className="flex flex-col gap-2 content-center items-center lg:items-end">
+                {footer_menu.map((item, i) => {
+                  return (
+                    <Link
+                      key={`footer-link-${i}`}
+                      href={item.href}
+                      className="uppercase lg:text-right font-bold hover:bg-secondary hover:text-primary p-2"
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
+              </ul>
+            </div>
             <div className="order-4 col-span-full text-center">
               © copyright Lopezed LLC 2026
             </div>
