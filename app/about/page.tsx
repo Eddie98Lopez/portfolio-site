@@ -2,6 +2,62 @@ import React from "react";
 import { Section } from "@/components/ui/section";
 import IdeWrapper from "@/components/Home/ide-wrapper";
 import { TypewriterCarousel } from "@/components/Home/hero";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Me | Eddie Lopez | Frontend Devloper & Designer",
+  description: `I’m Eduardo “Eddie” Lopez, a designer turned frontend engineer with agency experience, focused on building thoughtful, well-crafted web interfaces.`,
+  keywords: [
+    "about frontend engineer",
+    "about web developer",
+    "designer turned frontend engineer",
+    "ui focused developer",
+    "frontend engineer background",
+    "web developer experience",
+    "agency frontend developer",
+    "creative frontend engineer",
+    "eduardo lopez frontend engineer",
+    "eddie lopez web developer",
+    "design and development background",
+  ],
+};
+
+export const Resume = () => {
+  return (
+    <Section>
+      <div className="lg:grid lg:grid-cols-[1fr_2fr] flex flex-col gap-8">
+        <h2 className="text-5xl">Experience</h2>
+        <ul className="flex flex-col lg:flex-row  lg:gap-16 gap-8 flex-wrap">
+          <li>
+            <h3 className="text-2xl ">Web Developer</h3>
+            <p>Centered Marketing Group</p>
+            <p className="italic">May 2025 - Dec 2025</p>
+          </li>
+          <li>
+            <h3 className="text-2xl ">Graphic Designer</h3>
+            <p>Centered Marketing Group</p>
+            <p className="italic">Mar 2024 - May 2025</p>
+          </li>
+        </ul>
+      </div>
+      <div className="lg:grid lg:grid-cols-[1fr_2fr] flex flex-col gap-8 mt-12">
+        <h2 className="text-5xl">Education</h2>
+        <ul className="flex flex-col lg:flex-row  lg:gap-16 gap-8  flex-wrap">
+          <li>
+            <h3 className="text-2xl ">California College of the Arts</h3>
+            <p className="italic">Aug 2016 - Mar 2019</p>
+          </li>
+          <li>
+            <h3 className="text-2xl ">
+              Lambda School Fullstack Web Development
+            </h3>
+            <p className="italic">Oct 2020 - Aug 2021</p>
+          </li>
+        </ul>
+      </div>
+    </Section>
+  );
+};
 
 export const About = () => {
   return (
@@ -55,6 +111,7 @@ export const About = () => {
           </div>
         </div>
       </Section>
+      <Resume />
 
       {/*       <Section>Reading List</Section>
       <Section>Expereience resume Style</Section>
