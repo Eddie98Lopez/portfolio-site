@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "animate.css/animate.min.css";
 import "./globals.css";
 import { Navigation } from "@/components/ui/navigation";
@@ -9,6 +10,26 @@ import Logo from "@/components/Logo";
 import { footer_menu } from "@/lib/nav-links";
 
 import SocialBar from "@/components/social-bar";
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Eddie Lopez",
+  alternateName: ["Eduardo Lopez", "Eduardo 'Eddie' Lopez", "Eddie98Lopez"],
+  url: "https://lopezed.com",
+  jobTitle: "Web Developer",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Fresno",
+    addressRegion: "CA",
+    addressCountry: "US",
+  },
+  sameAs: [
+    "https://www.linkedin.com/in/eddie98lopez/",
+    "https://github.com/Eddie98Lopez",
+    "https://www.centeredmarketing.com/team/b7002c46-8126-4d65-8096-8cd89ab7cece",
+  ],
+};
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +53,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personSchema),
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
