@@ -29,6 +29,9 @@ export const metadata: Metadata = {
   },
 
   keywords: [
+    "eduardo lopez",
+    "eduardo",
+    "eddie98lopez",
     "frontend developer",
     "front end developer",
     "fresno",
