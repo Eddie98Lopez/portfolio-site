@@ -2,9 +2,15 @@ import { Section } from "@/components/ui/section";
 import { StyledWindowWrapper } from "@/components/Home/ide-wrapper";
 import { Badge } from "@/components/ui/badge";
 import { Github, GlobeIcon, Figma } from "lucide-react";
+import Link from "next/link";
 import { getProject } from "@/lib/supabase";
 import Image from "next/image";
 import type { Metadata } from "next";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -76,17 +82,33 @@ export default async function Page({
             <p className="whitespace-pre-wrap text-left">
               {project.description}
             </p>
-            {/*             <ul className="flex gap-2">
-              <li className="size-8 rounded-[500px] bg-secondary flex items-center content-center">
-                <GlobeIcon color="var(--primary,black)" className="m-auto" />
-              </li>
-              <li className="size-8 rounded-[500px] bg-secondary flex items-center content-center">
-                <GlobeIcon color="var(--primary,black)" className="m-auto" />
-              </li>
-              <li className="size-8 rounded-[500px] bg-secondary flex items-center content-center">
-                <GlobeIcon color="var(--primary,black)" className="m-auto" />
-              </li>
-            </ul> */}
+            <ul className="flex gap-2">
+              {project.links.map(
+                (link: { url: string; platform: string }, i: number) => {
+                  return (
+                    <Tooltip key={`${link.platform}-${i}`}>
+                      <TooltipTrigger>
+                        <li className="size-8 rounded-[500px] bg-secondary flex items-center content-center">
+                          <Link
+                            href={link.url}
+                            className=" w-full block"
+                            target="_blank"
+                          >
+                            <GlobeIcon
+                              color="var(--primary,black)"
+                              className="m-auto"
+                            />
+                          </Link>
+                        </li>
+                      </TooltipTrigger>
+                      <TooltipContent className="border boreder-secondary">
+                        {link.platform}
+                      </TooltipContent>
+                    </Tooltip>
+                  );
+                },
+              )}
+            </ul>
 
             <div
               id="gallery-wrapper"

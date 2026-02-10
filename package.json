@@ -24,6 +24,7 @@
     "motion": "^12.27.1",
     "motion-plus": "https://api.motion.dev/registry.tgz?package=motion-plus&version=2.0.2&token=85cf4f539ffe4ead254b3506ba5c6ca965dd848ea2c1bface16373fccf724298",
     "next": "16.1.3",
+    "radix-ui": "^1.4.3",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "swiper": "^12.0.3",

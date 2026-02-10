@@ -14,11 +14,15 @@ export const metadata: Metadata = {
   description:
     "Frontend developer with a graphic design background. I build clean, responsive, design-driven web experiences with modern frontend tools.",
   robots: { index: true, follow: true },
+  alternates: {
+    canonical: "https://www.lopezed.com/ ", // resolves to https://www.lopezed.com/ because of metadataBase
+  },
   openGraph: {
     title: "Frontend Developer & Designer | Eddie Lopez",
     description:
       "Frontend developer with a graphic design background. I build clean, responsive, design-driven web experiences with modern frontend tools.",
     type: "website",
+    url: "/", // also resolves via metadataBase
   },
 
   twitter: {

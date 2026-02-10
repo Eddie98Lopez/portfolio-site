@@ -29,24 +29,22 @@ export const getFeaturedProjects = async () => {
 };
 
 export const getProject = cache(async (id: string) => {
-  const { data: project, error: project_error } = await supabasePublic
+  const { data, error } = await supabasePublic
     .from("projects")
-    .select("*")
-    .eq("id", id);
-  if (project_error) {
-    throw project_error;
-  }
-  const { data: images, error: images_error } = await supabasePublic
-    .from("projects_to_images")
-    .select("href, index")
-    .eq("project_id", id)
-    .order("index", { ascending: true });
+    .select(
+      `
+      *,
+      images:projects_to_images (href, index),
+      links (*)
+    `,
+    )
+    .eq("id", id)
+    .order("index", { foreignTable: "projects_to_images", ascending: true })
+    .single();
 
-  if (images_error) {
-    throw images_error;
-  }
+  if (error) throw error;
 
-  return { ...project[0], images };
+  return data;
 });
 
 export const getAllProjects = async () => {
