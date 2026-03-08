@@ -35,7 +35,7 @@ export const getProject = cache(async (id: string) => {
       `
       *,
       images:projects_to_images (href, index),
-      links (*)
+      links (platform,url)
     `,
     )
     .eq("id", id)

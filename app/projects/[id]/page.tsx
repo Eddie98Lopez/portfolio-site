@@ -1,6 +1,7 @@
 import { Section } from "@/components/ui/section";
 import { StyledWindowWrapper } from "@/components/Home/ide-wrapper";
 import { Badge } from "@/components/ui/badge";
+import ImageCarousel from "@/components/ui/image-carousel";
 import { Github, GlobeIcon, Figma } from "lucide-react";
 import Link from "next/link";
 import { getProject } from "@/lib/supabase";
@@ -46,6 +47,102 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+const ProjectLinks = ({
+  links,
+}: {
+  links: { url: string; platform: string }[];
+}) => {
+  return (
+    <ul className="flex gap-2">
+      {links.map((link: { url: string; platform: string }, i: number) => {
+        return (
+          <Tooltip key={`${link.platform}-${i}`}>
+            <TooltipTrigger>
+              <li className="size-8 rounded-[500px] bg-secondary flex items-center content-center">
+                <Link href={link.url} className=" w-full block" target="_blank">
+                  <GlobeIcon color="var(--primary,black)" className="m-auto" />
+                </Link>
+              </li>
+            </TooltipTrigger>
+            <TooltipContent className="border boreder-secondary">
+              {link.platform}
+            </TooltipContent>
+          </Tooltip>
+        );
+      })}
+    </ul>
+  );
+};
+
+const ProjectTechStack = ({
+  technologies,
+  wip,
+}: {
+  technologies: string[];
+  wip: boolean;
+}) => {
+  return (
+    <ul className="flex gap-2 flex-wrap">
+      {technologies.map((badge: string, i: number) => (
+        <Badge
+          key={`tech-badge-${badge}-${i}`}
+          variant={"secondary"}
+          className="font-bold"
+        >
+          {badge}
+        </Badge>
+      ))}
+      {wip && (
+        <Badge variant={"secondary"} className="font-bold">
+          WIP
+        </Badge>
+      )}
+    </ul>
+  );
+};
+
+const ProjectImageGallery = ({
+  images,
+  projectTitle,
+}: {
+  images: { href: string; index: number }[];
+  projectTitle: string;
+}) => {
+  return (
+    <div
+      id="gallery-wrapper"
+      className="md:grid flex flex-col md:grid-cols-2 lg:grid-cols-3 gap-5  w-full m-auto"
+    >
+      {images.map((image: { href: string; index: number }, i: number) => {
+        const classStyles =
+          i % 3 == 0
+            ? "aspect-7/5 col-span-2"
+            : "aspect-4/5 lg:aspect-auto col-span-1";
+
+        return (
+          <ImageCarousel
+            images={images}
+            startIndex={i}
+            key={"project_image" + image.index}
+          >
+            <div
+              className={`w-full overflow-hidden flex content-center items-center bg-gray-500 rounded-md ${classStyles}`}
+            >
+              <Image
+                src={image.href}
+                width={1080}
+                height={1080}
+                alt={projectTitle + " " + image.index}
+                className="object-cover h-full"
+              />
+            </div>
+          </ImageCarousel>
+        );
+      })}
+    </div>
+  );
+};
+
 export default async function Page({
   params,
 }: {
@@ -53,8 +150,8 @@ export default async function Page({
 }) {
   const { id } = await params;
   const project = await getProject(id);
-  //console.log(id);
-  //console.log(project);
+  console.log(project);
+
   return (
     <div>
       <Section className="background-invert text-secondary">
@@ -63,86 +160,18 @@ export default async function Page({
             <h1 className="lg:text-[10rem] text-[5rem] leading-none">
               {project.title}
             </h1>
-            <ul className="flex gap-2 flex-wrap">
-              {project.technologies.map((badge: string, i: number) => (
-                <Badge
-                  key={`tech-badge-${badge}-${i}`}
-                  variant={"secondary"}
-                  className="font-bold"
-                >
-                  {badge}
-                </Badge>
-              ))}
-              {project.wip && (
-                <Badge variant={"secondary"} className="font-bold">
-                  WIP
-                </Badge>
-              )}
-            </ul>
+            <ProjectTechStack
+              technologies={project.technologies}
+              wip={project.wip}
+            />
             <p className="whitespace-pre-wrap text-left">
               {project.description}
             </p>
-            <ul className="flex gap-2">
-              {project.links.map(
-                (link: { url: string; platform: string }, i: number) => {
-                  return (
-                    <Tooltip key={`${link.platform}-${i}`}>
-                      <TooltipTrigger>
-                        <li className="size-8 rounded-[500px] bg-secondary flex items-center content-center">
-                          <Link
-                            href={link.url}
-                            className=" w-full block"
-                            target="_blank"
-                          >
-                            <GlobeIcon
-                              color="var(--primary,black)"
-                              className="m-auto"
-                            />
-                          </Link>
-                        </li>
-                      </TooltipTrigger>
-                      <TooltipContent className="border boreder-secondary">
-                        {link.platform}
-                      </TooltipContent>
-                    </Tooltip>
-                  );
-                },
-              )}
-            </ul>
-
-            <div
-              id="gallery-wrapper"
-              className="md:grid flex flex-col md:grid-cols-2 lg:grid-cols-3 gap-5  w-full m-auto"
-            >
-              {project.images.map(
-                (
-                  image: { href: string; title: string; index: number },
-                  i: number,
-                ) => {
-                  const length = project.images.length;
-                  const last = project.images.length - 1;
-                  const classStyles =
-                    i % 3 == 0
-                      ? "aspect-7/5 col-span-2"
-                      : "aspect-4/5 lg:aspect-auto col-span-1";
-
-                  return (
-                    <div
-                      key={project.title + " " + image.index}
-                      className={`w-full overflow-hidden flex content-center items-center bg-gray-500 rounded-md ${classStyles}`}
-                    >
-                      <Image
-                        src={image.href}
-                        width={1080}
-                        height={1080}
-                        alt={project.title + " " + image.index}
-                        className="object-cover h-full"
-                      />
-                    </div>
-                  );
-                },
-              )}
-            </div>
+            <ProjectLinks links={project.links} />
+            <ProjectImageGallery
+              images={project.images}
+              projectTitle={project.title}
+            />
           </div>
         </StyledWindowWrapper>
         {/*         <div className="mt-8 mb-8">
