@@ -15,7 +15,7 @@ const ImageCarousel = ({
   startIndex,
 }: {
   children: React.ReactNode;
-  images: { href: string; index: number };
+  images: { href: string; index: number }[];
   startIndex: number;
 }) => {
   return (
