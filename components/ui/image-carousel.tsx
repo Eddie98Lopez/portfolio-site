@@ -9,7 +9,15 @@ import {
 } from "./carousel";
 import Image from "next/image";
 
-const ImageCarousel = ({ children, images, startIndex }) => {
+const ImageCarousel = ({
+  children,
+  images,
+  startIndex,
+}: {
+  children: React.ReactNode;
+  images: { href: string; index: number };
+  startIndex: number;
+}) => {
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
