@@ -7,6 +7,7 @@ import { Menu, CircleX, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { usePathname, useParams } from "next/navigation";
 import { motion } from "motion/react";
+import { HighlightedText } from "./highlighted-text";
 
 type NavigationWrapperProps = {
   variant?: string;
@@ -35,7 +36,7 @@ export const NavigationWrapper = ({
   return (
     <header
       id="main-navigation"
-      className="bg-white md:px-[8%] flex translate-z-0 z-1000 flex-col justify-around items-center w-full h-full ring-1 py-4 ring-gray-alpha-400 px-6 sticky top-0 "
+      className="bg-(--background-subtle) md:px-[8%] flex translate-z-0 z-1000 flex-col justify-around items-center w-full h-full ring-1 py-4 ring-gray-alpha-400 px-6 sticky top-0 "
     >
       <nav
         id="nav-wrapper"
@@ -63,7 +64,7 @@ export const NavLinkGroup = ({
         initial={{ opacity: 0, translateY: -500 }}
         whileInView={{ opacity: 1, translateY: 0 }}
         id="mobile-nav"
-        className={`bg-default
+        className={`bg-(--surface-subtle)
         fixed inset-0
         w-screen h-screen
         z-[9999] ${isOpen ? "block" : "hidden"}
@@ -134,40 +135,40 @@ export const Navigation = () => {
     <NavigationWrapper>
       <NavLogo>
         <Link href="/">
-          <Logo className="size-12" />
+          <Logo className="size-12 fill-(--text-base)" />
         </Link>
       </NavLogo>
       <NavHamburger isOpen={open} setOpen={setOpen} />
       <NavLinkGroup isOpen={open} setOpen={setOpen} className="">
         <Link
-          className="block font-(family-name:--heading-type) text-7xl lg:text-base"
+          className="block text-display-large text-(--text-base) transition-all lg:text-base"
           href="/#"
         >
-          home
+          <HighlightedText trigger="hover">home</HighlightedText>
         </Link>
         <Link
-          className="block font-(family-name:--heading-type) text-7xl lg:text-base"
+          className="block text-display-large text-(--text-base) transition-all lg:text-base"
           href="/#about"
         >
-          about
+          <HighlightedText trigger="hover">about</HighlightedText>
         </Link>
         <Link
-          className="block font-(family-name:--heading-type) text-7xl lg:text-base"
+          className="block text-display-large text-(--text-base) transition-all lg:text-base"
           href="/#projects"
         >
-          projects
+          <HighlightedText trigger="hover">projects</HighlightedText>
         </Link>
         <Link
-          className="block font-(family-name:--heading-type) text-7xl lg:text-base"
+          className="block text-display-large text-(--text-base)  transition-all lg:text-base"
           href="/#services"
         >
-          services
+          <HighlightedText trigger="hover">services</HighlightedText>
         </Link>
         <Link
-          className="block font-(family-name:--heading-type) text-7xl lg:text-base"
+          className="block text-display-large text-(--text-base) ) transition-all lg:text-base"
           href="/#contact"
         >
-          contact
+          <HighlightedText trigger="hover">contact</HighlightedText>
         </Link>
       </NavLinkGroup>
     </NavigationWrapper>

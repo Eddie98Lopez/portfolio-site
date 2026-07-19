@@ -6,40 +6,15 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* =========================================
+   TAILWIND THEME CONFIGURATION (V4)
+   ========================================= */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--body-copy, --font-geist-sans);
-  --font-mono: var(--body-copy, --font-geist-mono);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
+  /* Typography */
+  --font-sans: var(--font-mono, --font-geist-sans);
+  --font-mono: var(--font-display, --font-geist-mono);
+
+  /* Radii */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -47,81 +22,344 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+
+  /* Shadcn UI Colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Shadcn UI Sidebar Colors */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Shadcn UI Chart Colors (kept from original, update as needed) */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Figma Semantic Colors (Available alongside shadcn) */
+  --color-background-subtle: var(--background-subtle);
+  --color-background-base: var(--background-base);
+  --color-background-emphasis: var(--background-emphasis);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-base: var(--surface-base);
+  --color-surface-emphasis: var(--surface-emphasis);
+  --color-secondary-subtle: var(--secondary-subtle);
+  --color-secondary-base: var(--secondary-base);
+  --color-secondary-emphasis: var(--secondary-emphasis);
+  --color-primary-subtle: var(--primary-subtle);
+  --color-primary-base: var(--primary-base);
+  --color-primary-emphasis: var(--primary-emphasis);
+  --color-success-subtle: var(--success-subtle);
+  --color-success-base: var(--success-base);
+  --color-success-emphasis: var(--success-emphasis);
+  --color-error-subtle: var(--error-subtle);
+  --color-error-base: var(--error-base);
+  --color-error-emphasis: var(--error-emphasis);
+  --color-warning-subtle: var(--warning-subtle);
+  --color-warning-base: var(--warning-base);
+  --color-warning-emphasis: var(--warning-emphasis);
+  --color-info-subtle: var(--info-subtle);
+  --color-info-base: var(--info-base);
+  --color-info-emphasis: var(--info-emphasis);
+  --color-text-base: var(--text-base);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-subtle: var(--text-subtle);
+  --color-text-inverse: var(--text-inverse);
+  --color-text-accent: var(--text-accent);
+  --color-border-base: var(--border-base);
+  --color-border-emphasis: var(--border-emphasis);
+  --color-icon-base: var(--icon-base);
 }
 
+/* =========================================
+   LIGHT MODE (default.tokens.json)
+   ========================================= */
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --radius: 0.25rem;
+  --font-size-base: 16px;
+  --font-display: "Mazurquica VF", "Impact", "Haettenschweiler", sans-serif;
+  --font-mono: "PT Mono", "Courier New", ui-monospace, monospace;
+  --grid-size: 1.5rem; /* scales with root font-size = responsive & zoom-aware */
+
+  /* 1. Figma Semantic Tokens */
+  --background-subtle: #dbdad8;
+  --background-base: #f6f6f6;
+  --background-emphasis: #161718;
+  --surface-subtle: #b9bcbc;
+  --surface-base: #636768;
+  --surface-emphasis: #f1d33b;
+  --secondary-subtle: #f6eec6;
+  --secondary-base: #f1d33b;
+  --secondary-emphasis: #62540c;
+  --primary-subtle: #9b9fa0;
+  --primary-base: #161718;
+  --primary-emphasis: #494d4d;
+  --success-subtle: #89d7b1;
+  --success-base: #30a46c;
+  --success-emphasis: #16412c;
+  --error-subtle: #e87579;
+  --error-base: #cd2026;
+  --error-emphasis: #5c1114;
+  --warning-subtle: #f4ca8f;
+  --warning-base: #f59e24;
+  --warning-emphasis: #985d0c;
+  --info-subtle: #8dc6f3;
+  --info-base: #2196f3;
+  --info-emphasis: #0d5894;
+  --text-base: #161718;
+  --text-secondary: #636768;
+  --text-subtle: #b9bcbc;
+  --text-inverse: #fefefe;
+  --text-accent: #f1d33b;
+  --border-base: #b9bcbc;
+  --border-emphasis: #7c8283;
+  --icon-base: #f1d33b;
+
+  /* 2. Shadcn UI Mappings */
+  --background: var(--background-base);
+  --foreground: var(--text-base);
+  --card: var(--background-base);
+  --card-foreground: var(--text-base);
+  --popover: var(--background-base);
+  --popover-foreground: var(--text-base);
+  --primary: var(--primary-base);
+  --primary-foreground: var(--text-inverse);
+  --secondary: var(--secondary-base);
+  --secondary-foreground: var(--text-base);
+  --muted: var(--background-subtle);
+  --muted-foreground: var(--text-secondary);
+  --accent: var(--secondary-subtle);
+  --accent-foreground: var(--text-accent);
+  --destructive: var(--error-base);
+  --destructive-foreground: var(--text-inverse);
+  --border: var(--border-base);
+  --input: var(--border-base);
+  --ring: var(--primary-subtle);
+
+  /* Shadcn UI Sidebar */
+  --sidebar: var(--background-subtle);
+  --sidebar-foreground: var(--text-base);
+  --sidebar-primary: var(--primary-base);
+  --sidebar-primary-foreground: var(--text-inverse);
+  --sidebar-accent: var(--secondary-subtle);
+  --sidebar-accent-foreground: var(--text-accent);
+  --sidebar-border: var(--border-base);
+  --sidebar-ring: var(--primary-subtle);
+
+  /* Original Charts (Untouched) */
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-  --font-size-base: 16px;
-  --heading-type: "mazurquica-vf", sans-serif;
-  --subheading-type: "pt-mono", monospace;
-  --body-copy: "pt-mono", monospace;
+
+  --line-color: var(--background-subtle);
+  --paper-tint: var(--background-base);
+  --tex-paper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.15'/%3E%3C/svg%3E");
+  --tex-graph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M24 0H0V24' fill='none' stroke='rgba(60,50,40,0.16)' stroke-width='1'/%3E%3C/svg%3E");
+  --tex-dot: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='2' cy='2' r='1.4' fill='rgba(60,50,40,0.16)'/%3E%3C/svg%3E");
 }
 
+/* =========================================
+   DARK MODE (dark.tokens.json)
+   ========================================= */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  /* 1. Figma Semantic Tokens */
+  --background-subtle: #151719;
+  --background-base: #494d4d;
+  --background-emphasis: #9b9fa0;
+  --surface-subtle: #494d4d;
+  --surface-base: #d8d9d9;
+  --surface-emphasis: #f1d33b;
+  --secondary-subtle: #62540c;
+  --secondary-base: #dab913;
+  --secondary-emphasis: #f6eec6;
+  --primary-subtle: #636768;
+  --primary-base: #f6f6f6;
+  --primary-emphasis: #b9bcbc;
+  --success-subtle: #1f6242;
+  --success-base: #52c88f;
+  --success-emphasis: #bfe7d4;
+  --error-subtle: #5c1114;
+  --error-base: #e5484d;
+  --error-emphasis: #e87579;
+  --warning-subtle: #985d0c;
+  --warning-base: #f59e24;
+  --warning-emphasis: #f4ca8f;
+  --info-subtle: #0d5894;
+  --info-base: #58aef2;
+  --info-emphasis: #c0def6;
+  --text-base: #f6f6f6;
+  --text-secondary: #9b9fa0;
+  --text-subtle: #494d4d;
+  --text-inverse: #1d1d1d;
+  --text-accent: #f1d33b;
+  --border-base: #494d4d;
+  --border-emphasis: #7c8283;
+  --icon-base: #7c8591;
+
+  /* 2. Shadcn UI Mappings */
+  --background: var(--background-base);
+  --foreground: var(--text-base);
+  --card: var(--background-base);
+  --card-foreground: var(--text-base);
+  --popover: var(--background-base);
+  --popover-foreground: var(--text-base);
+  --primary: var(--primary-base);
+  --primary-foreground: var(--text-inverse);
+  --secondary: var(--secondary-base);
+  --secondary-foreground: var(--text-inverse);
+  --muted: var(--background-subtle);
+  --muted-foreground: var(--text-secondary);
+  --accent: var(--secondary-subtle);
+  --accent-foreground: var(--text-accent);
+  --destructive: var(--error-base);
+  --destructive-foreground: var(--text-inverse);
+  --border: var(--border-base);
+  --input: var(--border-base);
+  --ring: var(--primary-subtle);
+
+  /* Shadcn UI Sidebar */
+  --sidebar: var(--background-subtle);
+  --sidebar-foreground: var(--text-base);
+  --sidebar-primary: var(--primary-base);
+  --sidebar-primary-foreground: var(--text-inverse);
+  --sidebar-accent: var(--secondary-subtle);
+  --sidebar-accent-foreground: var(--text-accent);
+  --sidebar-border: var(--border-base);
+  --sidebar-ring: var(--primary-subtle);
+
+  /* Original Charts (Untouched) */
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+
+  --tex-graph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M24 0H0V24' fill='none' stroke='%23FFFFFF' stroke-opacity='0.16' stroke-width='1'/%3E%3C/svg%3E");
+  --tex-dot: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='2' cy='2' r='1.4' fill='%23FFFFFF' fill-opacity='0.16'/%3E%3C/svg%3E");
 }
 
+/* =========================================
+   TYPOGRAPHY UTILITIES
+   ========================================= */
+@utility text-display-large {
+  font-family: var(--font-display);
+  font-size: 5rem; /* 80px · mobile */
+  line-height: 0.85;
+  font-weight: 700;
+  letter-spacing: 0em;
+  text-transform: uppercase;
+  @media (width >= 48rem) {
+    font-size: 9.125rem;
+  } /* 150px · desktop */
+}
+
+@utility text-display-medium {
+  font-family: var(--font-display);
+  font-size: 4rem; /* 64px · mobile */
+  line-height: 0.85;
+  font-weight: 700;
+  letter-spacing: 0em;
+  text-transform: uppercase;
+  @media (width >= 48rem) {
+    font-size: 7.5rem;
+  } /* 120px · desktop */
+}
+
+@utility text-display-small {
+  /* doubles as the email header */
+  font-family: var(--font-display);
+  font-size: 3.2rem; /* 51.2px · mobile */
+  line-height: 0.85;
+  font-weight: 700;
+  letter-spacing: 0em;
+  text-transform: uppercase;
+  @media (width >= 48rem) {
+    font-size: 6rem;
+  } /* 96px · desktop */
+}
+
+@utility text-headline {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  line-height: 1.2;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0em;
+}
+
+@utility text-title {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  line-height: 1.3;
+  font-weight: 400;
+  letter-spacing: 0em;
+}
+
+@utility text-body {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: 0em;
+}
+
+@utility text-label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@utility text-label-small {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  line-height: 1.4;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@utility text-button {
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* =========================================
+   GLOBAL BASE STYLES
+   ========================================= */
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -131,59 +369,35 @@
   }
 }
 
-body {
-  background: url("/white-texture.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
-}
-.bg-default {
-  background: url("/white-texture.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
+/* =========================================
+   CUSTOM COMPONENTS & TEXTURES
+   ========================================= */
+
+.texture {
+  position: relative;
+  overflow: hidden;
+  /* background-color: var(--paper-tint, var(--background-subtle)); */
+  background-size: 1.25rem 1.25rem;
 }
 
-.background-invert {
-  backdrop-filter: invert(97%);
+.texture[data-pattern="graph"] {
+  background-image: var(--tex-graph);
+  background-size:
+    1.25rem 1.25rem,
+    var(--grid-size, 20px) var(--grid-size, 20px);
 }
 
-section,
-div,
-p,
-span,
-button {
-  font-family: var(--body-copy);
-}
-button {
-  font-weight: bolder;
-  letter-spacing: 0.05em;
-  min-height: 45px;
+.texture[data-pattern="dot"] {
+  background-image: var(--tex-dot);
+  background-size:
+    1.25rem 1.25rem,
+    var(--grid-size, 20px) var(--grid-size, 20px);
 }
 
-h1,
-h2,
-h3 {
-  font-family: var(--heading-type);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-variation-settings: "wght" 600;
-}
-.display-text {
-  font-family: var(--heading-type);
-  line-height: 1;
-  margin: 0;
-  padding: 0;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-variation-settings: "wght" 600;
-}
-
-h4,
-h5,
-h6 {
-  font-family: var(--subheading-type);
-  font-weight: 800;
+.texture::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 3rem rgba(0, 0, 0, 0.1);
+  pointer-events: none;
 }

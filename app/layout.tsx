@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
-import "animate.css/animate.min.css";
+import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
+
 import { Navigation } from "@/components/ui/navigation";
 import Footer from "@/components/ui/footer";
 import Link from "next/link";
@@ -10,6 +11,7 @@ import Logo from "@/components/Logo";
 import { footer_menu } from "@/lib/nav-links";
 
 import SocialBar from "@/components/social-bar";
+import ModeToggle from "@/components/mode-toggle";
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -52,7 +54,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <Script
           id="personaSchema"
@@ -65,44 +67,51 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navigation />
-        {children}
-        <Footer>
-          <div className="max-w-[1600px] w-full h-full flex flex-col m-auto content-center items-center lg:grid lg:grid-cols-2 gap-16">
-            <div className="order-1 flex gap-12 items-center ">
-              <Logo className="w-30 h-auto" fill="white" />
-              <div>
-                <p>
-                  <Link href="mailto:info@lopezed.com" className="font-bold">
-                    info@lopezed.com
-                  </Link>
-                </p>
-                <p>Based in Fresno, CA</p>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navigation />
+          {children}
+          <Footer>
+            <div className="max-w-[1600px] w-full h-full flex flex-col m-auto content-center items-center lg:grid lg:grid-cols-2 gap-16">
+              <div className="order-1 flex gap-12 items-center ">
+                <Logo className="w-30 h-auto fill-(--text-base)" />
+                <div>
+                  <p>
+                    <Link href="mailto:info@lopezed.com" className="font-bold">
+                      info@lopezed.com
+                    </Link>
+                  </p>
+                  <p>Based in Fresno, CA</p>
+                </div>
+              </div>
+              <div className="order-3">
+                <SocialBar />
+              </div>
+              <div className="order-2 row-span-2">
+                <ul className="flex flex-col gap-2 content-center items-center lg:items-end">
+                  {footer_menu.map((item, i) => {
+                    return (
+                      <Link
+                        key={`footer-link-${i}`}
+                        href={item.href}
+                        className="uppercase lg:text-right font-bold hover:bg-secondary hover:text-primary p-2"
+                      >
+                        {item.label}
+                      </Link>
+                    );
+                  })}
+                </ul>
+              </div>
+              <div className="order-4 col-span-full text-center">
+                <ModeToggle /> <div>© copyright Lopezed LLC 2026</div>
               </div>
             </div>
-            <div className="order-3">
-              <SocialBar />
-            </div>
-            <div className="order-2 row-span-2">
-              <ul className="flex flex-col gap-2 content-center items-center lg:items-end">
-                {footer_menu.map((item, i) => {
-                  return (
-                    <Link
-                      key={`footer-link-${i}`}
-                      href={item.href}
-                      className="uppercase lg:text-right font-bold hover:bg-secondary hover:text-primary p-2"
-                    >
-                      {item.label}
-                    </Link>
-                  );
-                })}
-              </ul>
-            </div>
-            <div className="order-4 col-span-full text-center">
-              © copyright Lopezed LLC 2026
-            </div>
-          </div>
-        </Footer>
+          </Footer>
+        </ThemeProvider>
       </body>
     </html>
   );
