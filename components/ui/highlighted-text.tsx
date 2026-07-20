@@ -63,7 +63,7 @@ export function HighlightedText({
         )}
         style={color ? { backgroundColor: color } : undefined}
       />
-      <span className="relative">{children}</span>
+      <motion.span className="relative">{children}</motion.span>
     </motion.span>
   );
 }
