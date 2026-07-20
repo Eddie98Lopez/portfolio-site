@@ -121,7 +121,7 @@ export function ContactForm() {
           </Label>
           <Input
             id="first"
-            className="bg-secondary border-primary"
+            className=""
             name="first"
             value={values.first}
             onChange={(e) => setField("first", e.target.value)}
@@ -131,7 +131,9 @@ export function ContactForm() {
           />
           <p
             id="first-error"
-            className="min-h-[1.25rem] text-sm text-destructive"
+            className="          <DialogContent>
+            <ContactForm />
+          </DialogContent> text-sm text-destructive"
           >
             {errors.first ?? ""}
           </p>
@@ -143,7 +145,7 @@ export function ContactForm() {
             Last name
           </Label>
           <Input
-            className="bg-secondary border-primary"
+            className=" "
             id="last"
             name="last"
             value={values.last}
@@ -152,10 +154,7 @@ export function ContactForm() {
             aria-invalid={Boolean(errors.last)}
             aria-describedby={errors.last ? "last-error" : undefined}
           />
-          <p
-            id="last-error"
-            className="min-h-[1.25rem] text-sm text-destructive"
-          >
+          <p id="last-error" className=" text-sm text-destructive">
             {errors.last ?? ""}
           </p>
         </div>
@@ -166,7 +165,7 @@ export function ContactForm() {
             Email
           </Label>
           <Input
-            className="bg-secondary border-primary"
+            className=" "
             id="email"
             name="email"
             type="email"
@@ -177,10 +176,7 @@ export function ContactForm() {
             aria-invalid={Boolean(errors.email)}
             aria-describedby={errors.email ? "email-error" : undefined}
           />
-          <p
-            id="email-error"
-            className="min-h-[1.25rem] text-sm text-destructive"
-          >
+          <p id="email-error" className=" text-sm text-destructive">
             {errors.email ?? ""}
           </p>
         </div>
@@ -192,7 +188,7 @@ export function ContactForm() {
           </Label>
           <Input
             id="phone"
-            className="bg-secondary border-primary"
+            className=" "
             name="phone"
             type="tel"
             value={values.phone}
@@ -202,10 +198,7 @@ export function ContactForm() {
             aria-invalid={Boolean(errors.phone)}
             aria-describedby={errors.phone ? "phone-error" : undefined}
           />
-          <p
-            id="phone-error"
-            className="min-h-[1.25rem] text-sm text-destructive"
-          >
+          <p id="phone-error" className=" text-sm text-destructive">
             {errors.phone ?? ""}
           </p>
         </div>
@@ -216,7 +209,7 @@ export function ContactForm() {
             Message
           </Label>
           <Textarea
-            className="h-[150px] bg-secondary border border-primary"
+            className="h-[150px]  border "
             id="body"
             name="body"
             value={values.body}
@@ -225,10 +218,7 @@ export function ContactForm() {
             aria-invalid={Boolean(errors.body)}
             aria-describedby={errors.body ? "body-error" : undefined}
           />
-          <p
-            id="body-error"
-            className="min-h-[1.25rem] text-sm text-destructive"
-          >
+          <p id="body-error" className=" text-sm text-destructive">
             {errors.body ?? ""}
           </p>
         </div>
@@ -237,7 +227,8 @@ export function ContactForm() {
         <div className="md:col-span-2">
           <Button
             type="submit"
-            className="w-full md:w-auto"
+            className="w-full "
+            size={"lg"}
             disabled={isSubmitting}
           >
             {isSubmitting ? "Sending..." : "Send"}

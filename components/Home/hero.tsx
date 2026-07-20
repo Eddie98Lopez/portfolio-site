@@ -86,48 +86,48 @@ const Hero = () => {
   );
 };
 
-export const ProjectsSection = ({ projects }) => {
-  const ref = useRef(null);
-  const inView = useInView(ref, {
-    margin: "200px 0px 200px 0px", // trigger a little before it enters
-  });
-  console.log("project slideShow in view: ", inView);
-  return (
-    <div ref={ref}>
-      <div style={{ display: inView ? "block" : "none" }}>
-        <Swiper
-          modules={[Navigation, Pagination, Autoplay]}
-          slidesPerView={"auto"}
-          spaceBetween={30}
-          centeredSlides={true}
-          speed={1000}
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-          }}
-          pagination={{ clickable: true }}
-          style={{ paddingBottom: "40px" }} // makes room below slides
-        >
-          {projects.projects.map((project) => (
-            <SwiperSlide
-              key={`project-${project.id}`}
-              className="w-full h-full max-w-[50%] aspect-16/9 flex place-content-center content-center items-center rounded-lg overflow-hidden"
-            >
-              <Link href={`/projects/${project.id}`}>
-                <Image
-                  src={project.cover_image}
-                  width={1080}
-                  height={1080}
-                  alt={project.title}
-                  className="object-cover w-full block transition-transform duration-300 hover:scale-105"
-                />
-              </Link>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-    </div>
-  );
-};
+// export const ProjectsSection = ({ projects }) => {
+//   const ref = useRef(null);
+//   const inView = useInView(ref, {
+//     margin: "200px 0px 200px 0px", // trigger a little before it enters
+//   });
+//   console.log("project slideShow in view: ", inView);
+//   return (
+//     <div ref={ref}>
+//       <div style={{ display: inView ? "block" : "none" }}>
+//         <Swiper
+//           modules={[Navigation, Pagination, Autoplay]}
+//           slidesPerView={"auto"}
+//           spaceBetween={30}
+//           centeredSlides={true}
+//           speed={1000}
+//           autoplay={{
+//             delay: 5000,
+//             disableOnInteraction: false,
+//           }}
+//           pagination={{ clickable: true }}
+//           style={{ paddingBottom: "40px" }} // makes room below slides
+//         >
+//           {projects.projects.map((project) => (
+//             <SwiperSlide
+//               key={`project-${project.id}`}
+//               className="w-full h-full max-w-[50%] aspect-16/9 flex place-content-center content-center items-center rounded-lg overflow-hidden"
+//             >
+//               <Link href={`/projects/${project.id}`}>
+//                 <Image
+//                   src={project.cover_image}
+//                   width={1080}
+//                   height={1080}
+//                   alt={project.title}
+//                   className="object-cover w-full block transition-transform duration-300 hover:scale-105"
+//                 />
+//               </Link>
+//             </SwiperSlide>
+//           ))}
+//         </Swiper>
+//       </div>
+//     </div>
+//   );
+// };
 
 export default Hero;

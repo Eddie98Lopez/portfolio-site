@@ -17,7 +17,7 @@ const FeatureCard = ({
 
   return (
     <div
-      className="grid w-full h-full min-h-[350px] overflow-hidden group relative cursor-pointer bg-(--surface-base) rounded border border-(--border-base)"
+      className="grid w-full aspect-3/2 overflow-hidden group relative cursor-pointer bg-(--surface-base) rounded border border-(--border-base)"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -31,7 +31,7 @@ const FeatureCard = ({
       {/* Text Layer: Stacked on top via Grid, centered via place-self-center.
         Using group-hover to translate down.
       */}
-      <div className="col-start-1 row-start-1 place-self-center z-10 transition-transform duration-500 ease-out group-hover:translate-y-10 text-headline text-(--text-inverse) group-hover:text-(--text-base)">
+      <div className="col-start-1 row-start-1 place-self-center z-5 transition-transform duration-500 ease-out group-hover:translate-y-10 text-headline text-(--text-inverse) group-hover:text-(--text-base)">
         <HighlightedText trigger="controlled" isHovered={isHovered}>
           {children}
         </HighlightedText>

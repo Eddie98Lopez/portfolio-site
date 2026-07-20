@@ -1,13 +1,14 @@
 import { Section } from "@/components/ui/section";
-import Hero, { ProjectsSection } from "@/components/Home/hero";
-import { ContactForm } from "@/components/forms/contact-form";
+import Hero from "@/components/Home/hero";
 import { getFeaturedProjects } from "@/lib/supabase";
 import { Metadata } from "next";
-import BookSection from "@/components/Home/books";
 import { HighlightedText } from "@/components/ui/highlighted-text";
 import FeatureCard from "@/components/feature-card";
 import HireMe from "@/components/ui/hire-me";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Card, CardTitle, CardContent } from "@/components/ui/card";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Frontend Developer & Designer | Eddie Lopez",
@@ -65,12 +66,12 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const projects = await getFeaturedProjects();
-  // console.log(projects);
+  const { projects } = await getFeaturedProjects();
+  console.log(projects);
   return (
     <div className="bg-transparent ">
       <Hero />
-      <Section className="texture" data-pattern="graph">
+      <Section className="texture" data-pattern="graph" id="services">
         <div className="w-full h-full flex flex-col gap-8">
           <h2 className="text-display-small text-center">
             Design that <HighlightedText>ships</HighlightedText> exactly as
@@ -94,7 +95,10 @@ export default async function Home() {
         </div>
       </Section>
 
-      <Section className="flex justify-center items-center bg-(--secondary-base)">
+      <Section
+        className="flex justify-center items-center bg-(--secondary-base)"
+        id="about"
+      >
         <div className="w-[60%] text-body-large font-bold text-center m-auto">
           I began my career in design and marketing, creating web experiences.
           But over time, I found myself wanting more control over how those
@@ -105,18 +109,39 @@ export default async function Home() {
           <Button>more about me</Button>
         </div>
       </Section>
-      <Section className="bg-(--background-emphasis)">
+      <Section className="bg-(--background-emphasis)" id="projects">
         <div>
           <h2 className="text-display-small text-center mb-8">
             <HighlightedText>Projects</HighlightedText>
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-[minmax(300px,1fr)] gap-4">
-            <div className="bg-(--surface-subtle) text-(--text-inverse)">1</div>
-            <div className="bg-(--surface-subtle) text-(--text-inverse)">1</div>
-            <div className="bg-(--surface-subtle) text-(--text-inverse)">1</div>
-            <div className="bg-(--surface-subtle) text-(--text-inverse)">1</div>
-            <div className="bg-(--surface-subtle) text-(--text-inverse)">1</div>
-            <div className="bg-(--surface-subtle) text-(--text-inverse)">1</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-4">
+            {projects.map((project, i) => {
+              return (
+                <Link
+                  key={`project-${project.id}`}
+                  href={`/projects/${project.id}`}
+                >
+                  <Card className="bg-transparent overflow-hidden w-full h-full p-0 aspect-3/2 hover:border-secondary hover:border-10 transition-all transition-3 rounded">
+                    <CardContent className="grid grid-cols-1 grid-rows-1 h-full w-full p-0 bg-transparent">
+                      <div className="col-start-1 row-start-1 relative w-full h-full ">
+                        <Image
+                          src={project.cover_image}
+                          fill
+                          alt={`${project.title} thumbnail`}
+                          className="object-cover"
+                        />
+                      </div>
+
+                      <div className="col-start-1 row-start-1 flex items-center justify-center p-6 sr-only ">
+                        <CardTitle className="text-white text-center text-xl md:text-2xl drop-shadow-md">
+                          {project.title}
+                        </CardTitle>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </Section>

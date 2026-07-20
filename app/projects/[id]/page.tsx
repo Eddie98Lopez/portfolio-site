@@ -12,6 +12,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import HireMe from "@/components/ui/hire-me";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -154,12 +155,10 @@ export default async function Page({
 
   return (
     <div>
-      <Section className="background-invert text-secondary">
+      <Section className="texture" data-pattern="graph">
         <StyledWindowWrapper>
           <div className="flex flex-col gap-6 p-0 m-0">
-            <h1 className="lg:text-[10rem] text-[5rem] leading-none">
-              {project.title}
-            </h1>
+            <h1 className="text-display-large">{project.title}</h1>
             <ProjectTechStack
               technologies={project.technologies}
               wip={project.wip}
@@ -194,6 +193,7 @@ export default async function Page({
           </ul>
         </div> */}
       </Section>
+      <HireMe />
     </div>
   );
 }

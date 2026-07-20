@@ -219,14 +219,14 @@
   --text-subtle: #494d4d;
   --text-inverse: #1d1d1d;
   --text-accent: #f1d33b;
-  --border-base: #494d4d;
+  --border-base: #b9bcbc;
   --border-emphasis: #7c8283;
   --icon-base: #7c8591;
 
   /* 2. Shadcn UI Mappings */
   --background: var(--background-base);
   --foreground: var(--text-base);
-  --card: var(--background-base);
+  --card: var(--surface-base);
   --card-foreground: var(--text-base);
   --popover: var(--background-base);
   --popover-foreground: var(--text-base);
@@ -241,8 +241,8 @@
   --destructive: var(--error-base);
   --destructive-foreground: var(--text-inverse);
   --border: var(--border-base);
-  --input: var(--border-base);
-  --ring: var(--primary-subtle);
+  --input: var(--background-emphasis);
+  --ring: var(--primary-base);
 
   /* Shadcn UI Sidebar */
   --sidebar: var(--background-subtle);
@@ -318,7 +318,7 @@
   font-family: var(--font-mono);
   font-size: 1.25rem;
   line-height: 1.3;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 0em;
 }
 

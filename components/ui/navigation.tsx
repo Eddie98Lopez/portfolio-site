@@ -3,8 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Button } from "./button";
 import Logo from "../Logo";
 import Link from "next/link";
-import { Menu, CircleX, X } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Menu, CircleX } from "lucide-react";
 import { usePathname, useParams } from "next/navigation";
 import { motion } from "motion/react";
 import { HighlightedText } from "./highlighted-text";
@@ -36,7 +35,7 @@ export const NavigationWrapper = ({
   return (
     <header
       id="main-navigation"
-      className="bg-(--background-subtle) md:px-[8%] flex translate-z-0 z-1000 flex-col justify-around items-center w-full h-full ring-1 py-4 ring-gray-alpha-400 px-6 sticky top-0 "
+      className="bg-(--background-subtle) md:px-[8%] flex translate-z-0 z-10 flex-col justify-around items-center w-full h-full ring-1 py-4 ring-gray-alpha-400 px-6 sticky top-0 "
     >
       <nav
         id="nav-wrapper"
@@ -122,51 +121,55 @@ export const NavHamburger = ({
 
 export const Navigation = () => {
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
-  const params = useParams();
-  //console.log(pathname);
-  //console.log(params);
-
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname, params]);
+  // You can likely remove usePathname and useParams entirely now!
 
   return (
     <NavigationWrapper>
       <NavLogo>
-        <Link href="/">
+        <Link href="/" onClick={() => setOpen(false)}>
           <Logo className="size-12 fill-(--text-base)" />
         </Link>
       </NavLogo>
+
       <NavHamburger isOpen={open} setOpen={setOpen} />
+
       <NavLinkGroup isOpen={open} setOpen={setOpen} className="">
         <Link
-          className="block text-display-large text-(--text-base) transition-all lg:text-base"
+          className="block text-display-large text-(--text-base) transition-all lg:text-2xl"
           href="/#"
+          onClick={() => setOpen(false)}
         >
           <HighlightedText trigger="hover">home</HighlightedText>
         </Link>
+
         <Link
-          className="block text-display-large text-(--text-base) transition-all lg:text-base"
+          className="block text-display-large text-(--text-base) transition-all lg:text-2xl"
           href="/#about"
+          onClick={() => setOpen(false)}
         >
           <HighlightedText trigger="hover">about</HighlightedText>
         </Link>
+
         <Link
-          className="block text-display-large text-(--text-base) transition-all lg:text-base"
+          className="block text-display-large text-(--text-base) transition-all lg:text-2xl"
           href="/#projects"
+          onClick={() => setOpen(false)}
         >
           <HighlightedText trigger="hover">projects</HighlightedText>
         </Link>
+
         <Link
-          className="block text-display-large text-(--text-base)  transition-all lg:text-base"
+          className="block text-display-large text-(--text-base) transition-all lg:text-2xl"
           href="/#services"
+          onClick={() => setOpen(false)}
         >
           <HighlightedText trigger="hover">services</HighlightedText>
         </Link>
+
         <Link
-          className="block text-display-large text-(--text-base) ) transition-all lg:text-base"
-          href="/#contact"
+          className="block text-display-large text-(--text-base) transition-all lg:text-2xl"
+          href="#contact"
+          onClick={() => setOpen(false)}
         >
           <HighlightedText trigger="hover">contact</HighlightedText>
         </Link>
