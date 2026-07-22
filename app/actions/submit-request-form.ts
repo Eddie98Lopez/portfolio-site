@@ -10,10 +10,10 @@ export type ContactFormValues = {
   phone: string;
   services: string[];
   timeline: string | undefined;
-  budget: [number, number];
+  budget: number[];
 };
 
-export type SubmitResult = { success: true } | { error: string };
+export type SubmitResult = { success: boolean } | { error: string };
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -48,11 +48,11 @@ export async function submitQuoteRequest(
     const { error } = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL!,
       to: process.env.CONTACT_TO_EMAIL!,
-      subject: `New inquiry — ${firstName} ${lastName}`,
+      subject: `New Quote Inquiry — ${firstName} ${lastName}`,
       text: fields.map(([k, v]) => `${k}: ${v}`).join("\n"),
       html: `
         <div style="font-family:system-ui,sans-serif;font-size:15px;color:#111">
-          <h2 style="margin:0 0 12px">New contact form submission</h2>
+          <h2 style="margin:0 0 12px">New Quote Request form submission</h2>
           ${fields
             .map(
               ([k, v]) =>

@@ -152,21 +152,25 @@ export function QuoteRequestForm() {
     },
   });
 
-  const [submittd, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<
+    "not submitted" | "successful" | "error"
+  >("not submitted");
 
   const onSubmit = (values: QuoteFormValues) => {
     // Swap this for your API call / next-step handler.
     console.log(values);
     submitQuoteRequest(values)
       .then((res) => {
-        res.success && setSubmitted(true);
+        if ("success" in res && res.success) {
+          setStatus("successful");
+        }
       })
       .catch((err) => console.log(err));
   };
 
-  if (submittd) {
+  if (status == "successful") {
     return <div>Request sumbitted successfully</div>;
-  } else {
+  } else if (status == "not submitted") {
     return (
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -338,5 +342,7 @@ export function QuoteRequestForm() {
         </Button>
       </form>
     );
+  } else {
+    return <div>There was an error sending your request please try again.</div>;
   }
 }

@@ -55,6 +55,9 @@ export function ContactForm() {
   const [values, setValues] = React.useState<ContactFormValues>(initialValues);
   const [errors, setErrors] = React.useState<FieldErrors>({});
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [status, setStatus] = React.useState<
+    "not submitted" | "successful" | "error"
+  >("not submitted");
 
   function setField<K extends keyof ContactFormValues>(
     key: K,
@@ -106,135 +109,164 @@ export function ContactForm() {
       // Optional: reset after success
       setValues(initialValues);
       setErrors({});
+      setStatus("successful");
+    } catch (err) {
+      console.error(err);
+      setStatus("error");
     } finally {
       setIsSubmitting(false);
     }
   }
 
-  return (
-    <form onSubmit={onSubmit} className="w-full">
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {/* First Name */}
-        <div className="space-y-2">
-          <Label htmlFor="first" className="uppercase font-bold tracking-wider">
-            First name
-          </Label>
-          <Input
-            id="first"
-            className=""
-            name="first"
-            value={values.first}
-            onChange={(e) => setField("first", e.target.value)}
-            autoComplete="given-name"
-            aria-invalid={Boolean(errors.first)}
-            aria-describedby={errors.first ? "first-error" : undefined}
-          />
-          <p
-            id="first-error"
-            className="          <DialogContent>
+  if (status == "not submitted") {
+    return (
+      <form onSubmit={onSubmit} className="w-full">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {/* First Name */}
+          <div className="space-y-2">
+            <Label
+              htmlFor="first"
+              className="uppercase font-bold tracking-wider"
+            >
+              First name
+            </Label>
+            <Input
+              id="first"
+              className=""
+              name="first"
+              value={values.first}
+              onChange={(e) => setField("first", e.target.value)}
+              autoComplete="given-name"
+              aria-invalid={Boolean(errors.first)}
+              aria-describedby={errors.first ? "first-error" : undefined}
+            />
+            <p
+              id="first-error"
+              className="          <DialogContent>
             <ContactForm />
           </DialogContent> text-sm text-destructive"
-          >
-            {errors.first ?? ""}
-          </p>
-        </div>
+            >
+              {errors.first ?? ""}
+            </p>
+          </div>
 
-        {/* Last Name */}
-        <div className="space-y-2">
-          <Label htmlFor="last" className="uppercase font-bold tracking-wider">
-            Last name
-          </Label>
-          <Input
-            className=" "
-            id="last"
-            name="last"
-            value={values.last}
-            onChange={(e) => setField("last", e.target.value)}
-            autoComplete="family-name"
-            aria-invalid={Boolean(errors.last)}
-            aria-describedby={errors.last ? "last-error" : undefined}
-          />
-          <p id="last-error" className=" text-sm text-destructive">
-            {errors.last ?? ""}
-          </p>
-        </div>
+          {/* Last Name */}
+          <div className="space-y-2">
+            <Label
+              htmlFor="last"
+              className="uppercase font-bold tracking-wider"
+            >
+              Last name
+            </Label>
+            <Input
+              className=" "
+              id="last"
+              name="last"
+              value={values.last}
+              onChange={(e) => setField("last", e.target.value)}
+              autoComplete="family-name"
+              aria-invalid={Boolean(errors.last)}
+              aria-describedby={errors.last ? "last-error" : undefined}
+            />
+            <p id="last-error" className=" text-sm text-destructive">
+              {errors.last ?? ""}
+            </p>
+          </div>
 
-        {/* Email */}
-        <div className="space-y-2">
-          <Label htmlFor="email" className="uppercase font-bold tracking-wider">
-            Email
-          </Label>
-          <Input
-            className=" "
-            id="email"
-            name="email"
-            type="email"
-            value={values.email}
-            onChange={(e) => setField("email", e.target.value)}
-            autoComplete="email"
-            inputMode="email"
-            aria-invalid={Boolean(errors.email)}
-            aria-describedby={errors.email ? "email-error" : undefined}
-          />
-          <p id="email-error" className=" text-sm text-destructive">
-            {errors.email ?? ""}
-          </p>
-        </div>
+          {/* Email */}
+          <div className="space-y-2">
+            <Label
+              htmlFor="email"
+              className="uppercase font-bold tracking-wider"
+            >
+              Email
+            </Label>
+            <Input
+              className=" "
+              id="email"
+              name="email"
+              type="email"
+              value={values.email}
+              onChange={(e) => setField("email", e.target.value)}
+              autoComplete="email"
+              inputMode="email"
+              aria-invalid={Boolean(errors.email)}
+              aria-describedby={errors.email ? "email-error" : undefined}
+            />
+            <p id="email-error" className=" text-sm text-destructive">
+              {errors.email ?? ""}
+            </p>
+          </div>
 
-        {/* Phone */}
-        <div className="space-y-2">
-          <Label htmlFor="phone" className="uppercase font-bold tracking-wider">
-            Phone
-          </Label>
-          <Input
-            id="phone"
-            className=" "
-            name="phone"
-            type="tel"
-            value={values.phone}
-            onChange={(e) => setField("phone", e.target.value)}
-            autoComplete="tel"
-            inputMode="tel"
-            aria-invalid={Boolean(errors.phone)}
-            aria-describedby={errors.phone ? "phone-error" : undefined}
-          />
-          <p id="phone-error" className=" text-sm text-destructive">
-            {errors.phone ?? ""}
-          </p>
-        </div>
+          {/* Phone */}
+          <div className="space-y-2">
+            <Label
+              htmlFor="phone"
+              className="uppercase font-bold tracking-wider"
+            >
+              Phone
+            </Label>
+            <Input
+              id="phone"
+              className=" "
+              name="phone"
+              type="tel"
+              value={values.phone}
+              onChange={(e) => setField("phone", e.target.value)}
+              autoComplete="tel"
+              inputMode="tel"
+              aria-invalid={Boolean(errors.phone)}
+              aria-describedby={errors.phone ? "phone-error" : undefined}
+            />
+            <p id="phone-error" className=" text-sm text-destructive">
+              {errors.phone ?? ""}
+            </p>
+          </div>
 
-        {/* Message (spans 2 cols on md+) */}
-        <div className="space-y-2 md:col-span-2">
-          <Label htmlFor="body" className="uppercase font-bold tracking-wider">
-            Message
-          </Label>
-          <Textarea
-            className="h-[150px]  border "
-            id="body"
-            name="body"
-            value={values.body}
-            onChange={(e) => setField("body", e.target.value)}
-            rows={6}
-            aria-invalid={Boolean(errors.body)}
-            aria-describedby={errors.body ? "body-error" : undefined}
-          />
-          <p id="body-error" className=" text-sm text-destructive">
-            {errors.body ?? ""}
-          </p>
-        </div>
+          {/* Message (spans 2 cols on md+) */}
+          <div className="space-y-2 md:col-span-2">
+            <Label
+              htmlFor="body"
+              className="uppercase font-bold tracking-wider"
+            >
+              Message
+            </Label>
+            <Textarea
+              className="h-[150px]  border "
+              id="body"
+              name="body"
+              value={values.body}
+              onChange={(e) => setField("body", e.target.value)}
+              rows={6}
+              aria-invalid={Boolean(errors.body)}
+              aria-describedby={errors.body ? "body-error" : undefined}
+            />
+            <p id="body-error" className=" text-sm text-destructive">
+              {errors.body ?? ""}
+            </p>
+          </div>
 
-        {/* Submit (spans 2 cols on md+) */}
-        <div className="md:col-span-2">
-          <Button
-            type="submit"
-            className="w-full "
-            size={"lg"}
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Sending..." : "Send"}
-          </Button>
+          {/* Submit (spans 2 cols on md+) */}
+          <div className="md:col-span-2">
+            <Button
+              type="submit"
+              className="w-full "
+              size={"lg"}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Sending..." : "Send"}
+            </Button>
+          </div>
         </div>
+      </form>
+    );
+  } else if (status == "successful") {
+    return <div className="text-success">Message sent successfully</div>;
+  } else {
+    return (
+      <div className="text-desctructive">
+        There was an error sending your message. Please try again
       </div>
-    </form>
-  );
+    );
+  }
 }

@@ -106,7 +106,6 @@ export default async function Home() {
           settle for “that’s not possible in the template.” This pushed me to
           learn a completely new domain space so I could own a product from
           design to code implementation.
-          <Button>more about me</Button>
         </div>
       </Section>
       <Section className="bg-(--background-emphasis)" id="projects">

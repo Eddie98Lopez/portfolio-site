@@ -62,7 +62,7 @@ const HireMe = () => {
             </FeatureCard>
           </Link>
 
-          <div className="bg-(--surface-base) hover:bg-(--secondary-base) transition-all w-full rounded min-h-[100px] md:col-span-3 grid content-center items-center text-headline text-(--text-inverse)  hover:text-(--text-base)">
+          <div className="bg-(--surface-base) hidden hover:bg-(--secondary-base) transition-all w-full rounded min-h-[100px] md:col-span-3 grid content-center items-center text-headline text-(--text-inverse)  hover:text-(--text-base)">
             download a resume
           </div>
         </div>
