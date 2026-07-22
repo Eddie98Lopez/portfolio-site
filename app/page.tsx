@@ -71,7 +71,7 @@ export default async function Home() {
   return (
     <div className="bg-transparent ">
       <Hero />
-      <Section className="texture" data-pattern="graph" id="services">
+      <Section className="texture hidden" data-pattern="graph" id="services">
         <div className="w-full h-full flex flex-col gap-8">
           <h2 className="text-display-small text-center">
             Design that <HighlightedText>ships</HighlightedText> exactly as
