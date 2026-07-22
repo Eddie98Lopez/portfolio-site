@@ -15,6 +15,7 @@ import {
   FieldSet,
   FieldTitle,
 } from "@/components/ui/field";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -22,6 +23,7 @@ import { Slider } from "@/components/ui/slider";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { submitQuoteRequest } from "@/app/actions/submit-request-form";
 
 /* -------------------------------------------------------------------------- */
 /*  Options — keep these as data so each section is easy to move to its own    */
@@ -150,176 +152,191 @@ export function QuoteRequestForm() {
     },
   });
 
+  const [submittd, setSubmitted] = useState(false);
+
   const onSubmit = (values: QuoteFormValues) => {
     // Swap this for your API call / next-step handler.
     console.log(values);
+    submitQuoteRequest(values)
+      .then((res) => {
+        res.success && setSubmitted(true);
+      })
+      .catch((err) => console.log(err));
   };
 
-  return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="mx-auto w-full max-w-lg space-y-8"
-    >
-      {/* ---------------------------------------------------------------- */}
-      {/*  Contact info                                                     */}
-      {/* ---------------------------------------------------------------- */}
-      <FieldSet>
-        <FieldLegend className="text-title font-bold">Contact</FieldLegend>
-        <FieldDescription>How can we reach you?</FieldDescription>
+  if (submittd) {
+    return <div>Request sumbitted successfully</div>;
+  } else {
+    return (
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="mx-auto w-full max-w-lg space-y-8"
+      >
+        {/* ---------------------------------------------------------------- */}
+        {/*  Contact info                                                     */}
+        {/* ---------------------------------------------------------------- */}
+        <FieldSet>
+          <FieldLegend className="text-title font-bold">Contact</FieldLegend>
+          <FieldDescription>How can we reach you?</FieldDescription>
 
-        <FieldGroup>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <FieldGroup>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <Field>
+                <FieldLabel htmlFor="firstName">First name</FieldLabel>
+                <Input id="firstName" {...register("firstName")} />
+                {errors.firstName && (
+                  <FieldError>{errors.firstName.message}</FieldError>
+                )}
+              </Field>
+
+              <Field>
+                <FieldLabel htmlFor="lastName">Last name</FieldLabel>
+                <Input id="lastName" {...register("lastName")} />
+                {errors.lastName && (
+                  <FieldError>{errors.lastName.message}</FieldError>
+                )}
+              </Field>
+            </div>
+
             <Field>
-              <FieldLabel htmlFor="firstName">First name</FieldLabel>
-              <Input id="firstName" {...register("firstName")} />
-              {errors.firstName && (
-                <FieldError>{errors.firstName.message}</FieldError>
-              )}
+              <FieldLabel htmlFor="email">Email</FieldLabel>
+              <Input id="email" type="email" {...register("email")} />
+              {errors.email && <FieldError>{errors.email.message}</FieldError>}
             </Field>
 
             <Field>
-              <FieldLabel htmlFor="lastName">Last name</FieldLabel>
-              <Input id="lastName" {...register("lastName")} />
-              {errors.lastName && (
-                <FieldError>{errors.lastName.message}</FieldError>
-              )}
+              <FieldLabel htmlFor="phone">Phone</FieldLabel>
+              <Input id="phone" type="tel" {...register("phone")} />
+              {errors.phone && <FieldError>{errors.phone.message}</FieldError>}
             </Field>
-          </div>
+          </FieldGroup>
+        </FieldSet>
 
-          <Field>
-            <FieldLabel htmlFor="email">Email</FieldLabel>
-            <Input id="email" type="email" {...register("email")} />
-            {errors.email && <FieldError>{errors.email.message}</FieldError>}
-          </Field>
+        <Separator />
 
-          <Field>
-            <FieldLabel htmlFor="phone">Phone</FieldLabel>
-            <Input id="phone" type="tel" {...register("phone")} />
-            {errors.phone && <FieldError>{errors.phone.message}</FieldError>}
-          </Field>
-        </FieldGroup>
-      </FieldSet>
+        {/* ---------------------------------------------------------------- */}
+        {/*  Services — multi-select (checkboxes)                             */}
+        {/* ---------------------------------------------------------------- */}
+        <FieldSet>
+          <FieldLegend variant="label" className="text-title font-bold">
+            Services
+          </FieldLegend>
+          <FieldDescription>Select everything you need.</FieldDescription>
 
-      <Separator />
-
-      {/* ---------------------------------------------------------------- */}
-      {/*  Services — multi-select (checkboxes)                             */}
-      {/* ---------------------------------------------------------------- */}
-      <FieldSet>
-        <FieldLegend variant="label" className="text-title font-bold">
-          Services
-        </FieldLegend>
-        <FieldDescription>Select everything you need.</FieldDescription>
-
-        <Controller
-          control={control}
-          name="services"
-          render={({ field }) => (
-            <FieldGroup className="gap-3">
-              {SERVICES.map((service) => {
-                const checked = field.value?.includes(service.id);
-                return (
-                  <ChoiceCard
-                    key={service.id}
-                    id={service.id}
-                    title={service.title}
-                    description={service.description}
-                    selected={checked}
-                    control={
-                      <Checkbox
-                        id={service.id}
-                        checked={checked}
-                        onCheckedChange={(state) => {
-                          const next = state === true;
-                          field.onChange(
-                            next
-                              ? [...field.value, service.id]
-                              : field.value.filter((v) => v !== service.id),
-                          );
-                        }}
-                      />
-                    }
-                  />
-                );
-              })}
-            </FieldGroup>
+          <Controller
+            control={control}
+            name="services"
+            render={({ field }) => (
+              <FieldGroup className="gap-3">
+                {SERVICES.map((service) => {
+                  const checked = field.value?.includes(service.id);
+                  return (
+                    <ChoiceCard
+                      key={service.id}
+                      id={service.id}
+                      title={service.title}
+                      description={service.description}
+                      selected={checked}
+                      control={
+                        <Checkbox
+                          id={service.id}
+                          checked={checked}
+                          onCheckedChange={(state) => {
+                            const next = state === true;
+                            field.onChange(
+                              next
+                                ? [...field.value, service.id]
+                                : field.value.filter((v) => v !== service.id),
+                            );
+                          }}
+                        />
+                      }
+                    />
+                  );
+                })}
+              </FieldGroup>
+            )}
+          />
+          {errors.services && (
+            <FieldError>{errors.services.message}</FieldError>
           )}
-        />
-        {errors.services && <FieldError>{errors.services.message}</FieldError>}
-      </FieldSet>
+        </FieldSet>
 
-      <Separator />
+        <Separator />
 
-      {/* ---------------------------------------------------------------- */}
-      {/*  Timeline — single-select (radio, styled as cards)               */}
-      {/* ---------------------------------------------------------------- */}
-      <FieldSet>
-        <FieldLegend variant="label" className="text-title font-bold">
-          Timeline
-        </FieldLegend>
-        <FieldDescription>When do you need this?</FieldDescription>
+        {/* ---------------------------------------------------------------- */}
+        {/*  Timeline — single-select (radio, styled as cards)               */}
+        {/* ---------------------------------------------------------------- */}
+        <FieldSet>
+          <FieldLegend variant="label" className="text-title font-bold">
+            Timeline
+          </FieldLegend>
+          <FieldDescription>When do you need this?</FieldDescription>
 
-        <Controller
-          control={control}
-          name="timeline"
-          render={({ field }) => (
-            <RadioGroup
-              value={field.value}
-              onValueChange={field.onChange}
-              className="gap-3"
-            >
-              {TIMELINES.map((t) => (
-                <ChoiceCard
-                  key={t.id}
-                  id={t.id}
-                  title={t.title}
-                  description={t.description}
-                  selected={field.value === t.id}
-                  control={<RadioGroupItem value={t.id} id={t.id} />}
-                />
-              ))}
-            </RadioGroup>
-          )}
-        />
-        {errors.timeline && <FieldError>{errors.timeline.message}</FieldError>}
-      </FieldSet>
-
-      <Separator />
-
-      {/* ---------------------------------------------------------------- */}
-      {/*  Budget — range slider (min / max)                               */}
-      {/* ---------------------------------------------------------------- */}
-      <FieldSet>
-        <FieldLegend variant="label" className="text-title font-bold">
-          Budget
-        </FieldLegend>
-        <FieldDescription>Drag to set your range.</FieldDescription>
-
-        <Controller
-          control={control}
-          name="budget"
-          render={({ field }) => (
-            <Field className="gap-4 pt-2">
-              <div className="flex items-center justify-between text-sm font-medium">
-                <span>{usd.format(field.value[0])}</span>
-                <span>{usd.format(field.value[1])}</span>
-              </div>
-              <Slider
-                min={BUDGET.min}
-                max={BUDGET.max}
-                step={BUDGET.step}
+          <Controller
+            control={control}
+            name="timeline"
+            render={({ field }) => (
+              <RadioGroup
                 value={field.value}
                 onValueChange={field.onChange}
-                minStepsBetweenThumbs={1}
-              />
-            </Field>
+                className="gap-3"
+              >
+                {TIMELINES.map((t) => (
+                  <ChoiceCard
+                    key={t.id}
+                    id={t.id}
+                    title={t.title}
+                    description={t.description}
+                    selected={field.value === t.id}
+                    control={<RadioGroupItem value={t.id} id={t.id} />}
+                  />
+                ))}
+              </RadioGroup>
+            )}
+          />
+          {errors.timeline && (
+            <FieldError>{errors.timeline.message}</FieldError>
           )}
-        />
-      </FieldSet>
+        </FieldSet>
 
-      <Button type="submit" className="w-full" disabled={isSubmitting}>
-        Request Quote
-      </Button>
-    </form>
-  );
+        <Separator />
+
+        {/* ---------------------------------------------------------------- */}
+        {/*  Budget — range slider (min / max)                               */}
+        {/* ---------------------------------------------------------------- */}
+        <FieldSet>
+          <FieldLegend variant="label" className="text-title font-bold">
+            Budget
+          </FieldLegend>
+          <FieldDescription>Drag to set your range.</FieldDescription>
+
+          <Controller
+            control={control}
+            name="budget"
+            render={({ field }) => (
+              <Field className="gap-4 pt-2">
+                <div className="flex items-center justify-between text-sm font-medium">
+                  <span>{usd.format(field.value[0])}</span>
+                  <span>{usd.format(field.value[1])}</span>
+                </div>
+                <Slider
+                  min={BUDGET.min}
+                  max={BUDGET.max}
+                  step={BUDGET.step}
+                  value={field.value}
+                  onValueChange={field.onChange}
+                  minStepsBetweenThumbs={1}
+                />
+              </Field>
+            )}
+          />
+        </FieldSet>
+
+        <Button type="submit" className="w-full" disabled={isSubmitting}>
+          Request Quote
+        </Button>
+      </form>
+    );
+  }
 }

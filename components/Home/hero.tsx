@@ -68,11 +68,15 @@ const Hero = () => {
         </div>
 
         {/* 3. Content Layer: Also assigned to row 1, column 1 */}
-        <div className="flex items-center justify-center gap-4 text-display-large col-start-1 row-start-1 z-10 text-(--text-inverse)">
+        <div className="flex items-center justify-center gap-4 text-display-large col-start-1 row-start-1 z-1 text-(--text-inverse)">
           <div className="">
-            <div className="text-right">UX</div>
+            <div className="text-right text-(--text-inverse)/30 dark:text-(--text-inverse)/50">
+              UX
+            </div>
             <div className="text-right">DESIGN</div>
-            <div className="text-right">SOFTWARE</div>
+            <div className="text-right text-(--text-inverse)/30 dark:text-(--text-inverse)/50">
+              SOFTWARE
+            </div>
           </div>
           {/* Removed useless grid classes here since the parent is a 'flex' container */}
           <div>
