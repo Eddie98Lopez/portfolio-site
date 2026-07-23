@@ -51,7 +51,8 @@ export const getAllProjects = async () => {
   const { data: projects, error } = await supabasePublic
     .from("projects")
     .select("*")
-    .eq("display", true);
+    .eq("display", true)
+    .order("library", { ascending: false });
 
   if (error) {
     throw error;

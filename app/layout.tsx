@@ -13,19 +13,31 @@ import { footer_menu } from "@/lib/nav-links";
 import SocialBar from "@/components/social-bar";
 import ModeToggle from "@/components/mode-toggle";
 
+const siteUrl = "https://www.lopezed.com";
+
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Eddie Lopez",
-  alternateName: ["Eduardo Lopez", "Eduardo 'Eddie' Lopez", "Eddie98Lopez"],
-  url: "https://lopezed.com",
-  jobTitle: "Web Developer",
+  alternateName: "Eduardo Lopez",
+  url: siteUrl,
+  jobTitle: "Design Engineer",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Fresno",
     addressRegion: "CA",
     addressCountry: "US",
   },
+  knowsAbout: [
+    "Design Engineering",
+    "Frontend Development",
+    "UI/UX Design",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Design Systems",
+    "Web Accessibility",
+  ],
   sameAs: [
     "https://www.linkedin.com/in/eddie98lopez/",
     "https://github.com/Eddie98Lopez",
@@ -55,18 +67,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <Script
-          id="personaSchema"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(personSchema),
-          }}
-        />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

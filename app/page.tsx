@@ -10,58 +10,91 @@ import Link from "next/link";
 import { Card, CardTitle, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 
-export const metadata: Metadata = {
-  title: "Frontend Developer & Designer | Eddie Lopez",
-  description:
-    "Frontend developer with a graphic design background. I build clean, responsive, design-driven web experiences with modern frontend tools.",
-  robots: { index: true, follow: true },
-  alternates: {
-    canonical: "https://www.lopezed.com/ ", // resolves to https://www.lopezed.com/ because of metadataBase
-  },
-  openGraph: {
-    title: "Frontend Developer & Designer | Eddie Lopez",
-    description:
-      "Frontend developer with a graphic design background. I build clean, responsive, design-driven web experiences with modern frontend tools.",
-    type: "website",
-    url: "/", // also resolves via metadataBase
-  },
+const title = "Design Engineer | Eddie Lopez";
+const description =
+  "UX, Design, Software Engineer & Frontend developer with a graphic design background. I build clean, responsive, design-driven web experiences with modern frontend tools.";
 
+const ogImage = {
+  url: "/images/og_image.png",
+  width: 1500,
+  height: 1330,
+  alt: "Eddie Lopez — Frontend Developer & Designer",
+};
+const siteUrl = "https://www.lopezed.com";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  robots: { index: true, follow: true },
+  alternates: { canonical: "/" },
+  authors: [{ name: "Eddie Lopez", url: siteUrl }],
+  creator: "Eddie Lopez",
+  openGraph: {
+    title,
+    description,
+    type: "website",
+    url: "/",
+    siteName: "Eddie Lopez",
+    locale: "en_US",
+    images: [ogImage],
+  },
   twitter: {
     card: "summary_large_image",
-    title: "Frontend Developer & Designer | Eddie Lopez",
-    description:
-      "Frontend developer with a graphic design background. I build clean, responsive, design-driven web experiences with modern frontend tools.",
+    title,
+    description,
+    images: [ogImage],
   },
-
   keywords: [
+    // name
+    "eddie lopez",
     "eduardo lopez",
-    "eduardo",
     "eddie98lopez",
+    "lopezed",
+
+    // primary titles
+    "design engineer",
+    "product engineer",
+    "ux engineer",
+    "design technologist",
     "frontend developer",
-    "front end developer",
-    "fresno",
-    "ca",
     "frontend engineer",
-    "ui developer",
-    "web developer",
-    "javascript developer",
+    "ui engineer",
+    "software engineer",
+
+    // the intersection — your actual differentiator
+    "designer who codes",
+    "design engineering",
+    "design to code",
+    "design systems engineer",
+    "design driven development",
+    "graphic designer turned software engineer",
+    "design and engineering hybrid",
+    "end to end product design and development",
+
+    // stack
     "react developer",
     "next.js developer",
     "typescript developer",
-    "tailwind css developer",
+    "tailwind css",
     "shadcn ui",
-    "modern frontend",
+    "design systems",
+    "component libraries",
+    "web accessibility",
+    "wcag compliance",
     "responsive web design",
-    "ui ux developer",
-    "design driven development",
-    "graphic designer turned developer",
-    "design focused frontend developer",
-    "creative frontend developer",
-    "web interface design",
-    "component based ui",
-    "accessible web design",
-    "performance focused frontend",
-    "portfolio frontend developer",
+    "web performance optimization",
+    "core web vitals",
+
+    // location + availability
+    "fresno ca",
+    "central valley california",
+    "remote design engineer",
+    "remote frontend developer",
+    "freelance frontend developer",
+    "contract frontend developer",
+    "available for hire",
+    "open to relocation",
   ],
 };
 
