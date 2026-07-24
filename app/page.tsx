@@ -5,7 +5,6 @@ import { Metadata } from "next";
 import { HighlightedText } from "@/components/ui/highlighted-text";
 import FeatureCard from "@/components/feature-card";
 import HireMe from "@/components/ui/hire-me";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Card, CardTitle, CardContent } from "@/components/ui/card";
 import Image from "next/image";

@@ -158,13 +158,13 @@ export const Navigation = () => {
           <HighlightedText trigger="hover">projects</HighlightedText>
         </Link>
 
-        <Link
+        {/* <Link
           className="block text-display-large text-(--text-base) transition-all lg:text-2xl"
           href="/#services"
           onClick={() => setOpen(false)}
         >
           <HighlightedText trigger="hover">services</HighlightedText>
-        </Link>
+        </Link> */}
 
         <Link
           className="block text-display-large text-(--text-base) transition-all lg:text-2xl"
