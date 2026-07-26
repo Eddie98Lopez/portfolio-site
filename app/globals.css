@@ -1,5 +1,4 @@
 @import url("https://use.typekit.net/rim2aok.css");
-@import url("https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&display=swap");
 
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -102,8 +101,8 @@
 :root {
   --radius: 0.25rem;
   --font-size-base: 16px;
-  --font-display: "Mazurquica VF", "Impact", "Haettenschweiler", sans-serif;
-  --font-mono: "PT Mono", "Courier New", ui-monospace, monospace;
+  --font-display: mazurquica-vf, impact, "Haettenschweiler", sans-serif;
+  --font-mono: pt-mono, "Courier New", ui-monospace, monospace;
   --grid-size: 1.5rem; /* scales with root font-size = responsive & zoom-aware */
 
   /* 1. Figma Semantic Tokens */
