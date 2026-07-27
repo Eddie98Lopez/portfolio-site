@@ -15,7 +15,7 @@ import { QuoteRequestForm } from "../forms/quote-request-form";
 
 const HireMe = () => {
   return (
-    <Section className="texture" data-pattern="dot" id="contact">
+    <Section id="contact">
       <div className="flex flex-col gap-8 text-center h-full">
         <div>
           <h2 className="text-display-small mb-4">
@@ -24,17 +24,11 @@ const HireMe = () => {
           <p className="text-headline">Part-time. Full-time. Freelance</p>
         </div>
         <div className=" grid grid-cols-1 md:grid-cols-3 gap-4 w-full ">
-          <Dialog>
-            <DialogTrigger>
-              <FeatureCard image="/images/estimate.png" alt="calculator">
-                Request a quote
-              </FeatureCard>
-            </DialogTrigger>
-            <DialogContent className="overflow-scroll max-h-[80vh]">
-              <DialogTitle className="sr-only">Request a Quote</DialogTitle>
-              <QuoteRequestForm />
-            </DialogContent>
-          </Dialog>
+          <Link href="/request-quote">
+            <FeatureCard image="/images/estimate.png" alt="calculator">
+              Request a quote
+            </FeatureCard>
+          </Link>
 
           <Dialog>
             <DialogTrigger>

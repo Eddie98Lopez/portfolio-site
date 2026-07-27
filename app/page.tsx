@@ -8,6 +8,7 @@ import HireMe from "@/components/ui/hire-me";
 import Link from "next/link";
 import { Card, CardTitle, CardContent } from "@/components/ui/card";
 import Image from "next/image";
+import ScrollTextLines from "@/components/ui/animated/scroll-text-lines";
 
 const title = "Design Engineer | Eddie Lopez";
 const description =
@@ -101,7 +102,7 @@ export default async function Home() {
   const { projects } = await getFeaturedProjects();
   console.log(projects);
   return (
-    <div className="bg-transparent ">
+    <div className="bg-transparent texture" data-pattern="dot">
       <Hero />
       <Section className="texture hidden" data-pattern="graph" id="services">
         <div className="w-full h-full flex flex-col gap-8">
@@ -131,7 +132,7 @@ export default async function Home() {
         className="flex justify-center items-center bg-(--secondary-base)"
         id="about"
       >
-        <div className="w-[60%] text-body-large font-bold text-center m-auto">
+        <div className="md:w-[60%] text-body-large font-bold text-center m-auto">
           I began my career in design and marketing, creating web experiences.
           But over time, I found myself wanting more control over how those
           experiences were built, not just how they looked. I didn’t want to
@@ -140,7 +141,7 @@ export default async function Home() {
           design to code implementation.
         </div>
       </Section>
-      <Section className="bg-(--background-emphasis)" id="projects">
+      <Section className="paper" id="projects">
         <div>
           <h2 className="text-display-small text-center mb-8">
             <HighlightedText>Projects</HighlightedText>
