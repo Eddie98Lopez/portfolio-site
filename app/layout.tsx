@@ -28,6 +28,7 @@ const personSchema = {
     addressRegion: "CA",
     addressCountry: "US",
   },
+  givenName: "Eduardo",
   knowsAbout: [
     "Design Engineering",
     "Frontend Development",
@@ -37,6 +38,12 @@ const personSchema = {
     "TypeScript",
     "Design Systems",
     "Web Accessibility",
+    "Branding",
+  ],
+  colleague: [
+    "https://www.jonathandominguez.com/",
+    "https://lamaurb.com/",
+    "https://www.centeredmarketing.com/",
   ],
   sameAs: [
     "https://www.linkedin.com/in/eddie98lopez/",

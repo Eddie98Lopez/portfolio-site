@@ -4,10 +4,12 @@ import { Ticker } from "motion-plus/react";
 import { useScroll, useTransform } from "motion/react";
 
 const lines = [
+  { text: "WEB", reverse: true },
   { text: "UX", reverse: false },
   { text: "DESIGN", reverse: true },
   { text: "SOFTWARE", reverse: false },
   { text: "ENGINEERING", reverse: true },
+  { text: "BRANDING", reverse: false },
 ];
 
 export default function ScrollTextLines() {
@@ -17,21 +19,23 @@ export default function ScrollTextLines() {
   const offset2 = useTransform(() => scrollY.get() * -0.7);
   const offset3 = useTransform(() => scrollY.get() * 0.6);
   const offset4 = useTransform(() => scrollY.get() * -0.8);
+  const offset5 = useTransform(() => scrollY.get() * 0.9);
+  const offset6 = useTransform(() => scrollY.get() * -1);
 
-  const offsets = [offset1, offset2, offset3, offset4];
+  const offsets = [offset1, offset2, offset3, offset4, offset5, offset6];
 
   return (
     <div id="example">
-      <section className="text-section">
+      <section className="text-section opacity-20">
         {lines.map((line, index) => (
           <Ticker
             key={line.text}
             className={`ticker-line ticker-${index}`}
             items={[
-              <span key="solid" className="text-solid text-display-small">
+              <span key="solid" className="text-solid text-display-large">
                 {line.text}
               </span>,
-              <span key="outline" className="text-outline text-display-small">
+              <span key="outline" className="text-outline text-display-large">
                 {line.text}
               </span>,
             ]}

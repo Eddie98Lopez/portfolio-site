@@ -6,7 +6,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const project_sitemap = projects.map((project) => {
     return {
-      url: `https://www.lopezed.com/projects/${project.id}`,
+      url: `https://www.lopezed.com/projects/${project.slug}`,
       lastModified: project.updated_at
         ? new Date(project.updated_at)
         : new Date(),
@@ -34,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
-      url: "https://www.lopezed.com/request-quote",
+      url: "https://www.lopezed.com/request-a-quote",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,

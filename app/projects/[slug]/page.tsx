@@ -7,23 +7,18 @@ import Link from "next/link";
 import { getProject } from "@/lib/supabase";
 import Image from "next/image";
 import type { Metadata } from "next";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import HireMe from "@/components/ui/hire-me";
 
 type Props = {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = await params;
+  const { slug } = await params;
 
   // fetch post information
-  const project = await getProject(id);
+  const project = await getProject(slug);
 
   return {
     title: project.title + " | Eddie Lopez",
@@ -43,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     robots: { index: true, follow: true },
     alternates: {
-      canonical: `/projects/${id}`,
+      canonical: `/projects/${slug}`,
     },
   };
 }
@@ -57,18 +52,21 @@ const ProjectLinks = ({
     <ul className="flex gap-2">
       {links.map((link: { url: string; platform: string }, i: number) => {
         return (
-          <Tooltip key={`${link.platform}-${i}`}>
-            <TooltipTrigger>
-              <li className="size-8 rounded-[500px] bg-secondary flex items-center content-center">
-                <Link href={link.url} className=" w-full block" target="_blank">
-                  <GlobeIcon color="var(--primary,black)" className="m-auto" />
-                </Link>
-              </li>
-            </TooltipTrigger>
-            <TooltipContent className="border boreder-secondary">
-              {link.platform}
-            </TooltipContent>
-          </Tooltip>
+          <Badge key={`${link.platform}-${i}`}>
+            <li className="flex items-center content-center">
+              <Link
+                href={link.url}
+                className=" w-full block flex gap-2 items-center uppercase font-bold"
+                target="_blank"
+              >
+                {link.platform === "github" && <Github className="m-auto" />}
+                {link.platform.includes("live") && (
+                  <GlobeIcon className="m-auto" />
+                )}{" "}
+                <span className="pr-1">{link.platform}</span>
+              </Link>
+            </li>
+          </Badge>
         );
       })}
     </ul>
@@ -147,17 +145,16 @@ const ProjectImageGallery = ({
 export default async function Page({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { id } = await params;
-  const project = await getProject(id);
-  console.log(project);
+  const { slug } = await params;
+  const project = await getProject(slug);
 
   return (
     <div>
       <Section className="texture" data-pattern="graph">
         <StyledWindowWrapper>
-          <div className="flex flex-col gap-6 p-0 m-0">
+          <div className="flex flex-col p-4 gap-6 md:p-8 m-0">
             <h1 className="text-display-large">{project.title}</h1>
             <ProjectTechStack
               technologies={project.technologies}
@@ -173,25 +170,6 @@ export default async function Page({
             />
           </div>
         </StyledWindowWrapper>
-        {/*         <div className="mt-8 mb-8">
-          <h3 className="text-2xl mb-4">credits</h3>
-          <ul className="flex gap-16">
-            <li className=" ">
-              <div className="font-bold uppercase leading-none text-xs">
-                Christopher
-              </div>
-              <div className="font-bold uppercase text-xs">Christopherson</div>
-              <div className="italic text-xs">Role</div>
-            </li>
-            <li className="">
-              <div className="font-bold uppercase leading-none text-xs">
-                Christopher
-              </div>
-              <div className="font-bold uppercase text-xs">Christopherson</div>
-              <div className="italic text-xs">Role</div>
-            </li>
-          </ul>
-        </div> */}
       </Section>
       <HireMe />
     </div>

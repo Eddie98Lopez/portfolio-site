@@ -16,7 +16,7 @@ const description =
 
 const ogImage = {
   url: "/images/og_image.png",
-  width: 1500,
+  width: 2500,
   height: 1330,
   alt: "Eddie Lopez — Frontend Developer & Designer",
 };
@@ -128,10 +128,7 @@ export default async function Home() {
         </div>
       </Section>
 
-      <Section
-        className="flex justify-center items-center bg-(--secondary-base)"
-        id="about"
-      >
+      <Section className="flex justify-center items-center" id="about">
         <div className="md:w-[60%] text-body-large font-bold text-center m-auto">
           I began my career in design and marketing, creating web experiences.
           But over time, I found myself wanting more control over how those
@@ -142,7 +139,7 @@ export default async function Home() {
         </div>
       </Section>
       <Section className="paper" id="projects">
-        <div>
+        <div className="py-8">
           <h2 className="text-display-small text-center mb-8">
             <HighlightedText>Projects</HighlightedText>
           </h2>
@@ -150,8 +147,8 @@ export default async function Home() {
             {projects.map((project) => {
               return (
                 <Link
-                  key={`project-${project.id}`}
-                  href={`/projects/${project.id}`}
+                  key={`project-${project.slug}`}
+                  href={`/projects/${project.slug}`}
                 >
                   <Card className="bg-transparent overflow-hidden w-full h-full p-0 aspect-3/2 hover:border-secondary hover:border-10 transition-all transition-3 rounded">
                     <CardContent className="grid grid-cols-1 grid-rows-1 h-full w-full p-0 bg-transparent">

@@ -1,6 +1,6 @@
 @import url("https://use.typekit.net/rim2aok.css");
-
 @import "tailwindcss";
+@import "./typeset.css";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -408,4 +408,9 @@
   background-color: var(--black, #2b2b2b);
   background-size: cover;
   background-blend-mode: color-burn;
+
+  mask: url("/paper-mask.svg");
+  mask-mode: luminance;
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%; /* was: cover */
 }

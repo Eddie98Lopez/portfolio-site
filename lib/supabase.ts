@@ -18,7 +18,7 @@ export const supabaseServer = createClient(supabaseUrl, supabaseServerKey);
 export const getFeaturedProjects = async () => {
   const { data: projects, error } = await supabasePublic
     .from("projects")
-    .select("title,cover_image,id")
+    .select("title,cover_image,id,slug")
     .eq("featured", true);
 
   if (error) {
@@ -28,19 +28,21 @@ export const getFeaturedProjects = async () => {
   return { projects };
 };
 
-export const getProject = cache(async (id: string) => {
+export const getProject = cache(async (slug: string) => {
   const { data, error } = await supabasePublic
     .from("projects")
     .select(
       `
       *,
       images:projects_to_images (href, index),
-      links (platform,url)
+      links (platform, url)
     `,
     )
-    .eq("id", id)
-    .order("index", { foreignTable: "projects_to_images", ascending: true })
-    .single();
+    .eq("slug", slug)
+    // 1. Use the alias "images" here, not the original table name
+    .order("index", { foreignTable: "images", ascending: true })
+    // 2. Use maybeSingle() to return null instead of throwing an error on 0 rows
+    .maybeSingle();
 
   if (error) throw error;
 

@@ -50,7 +50,7 @@ export const TypewriterCarousel = ({
 
 const Hero = () => {
   return (
-    <Section className=" py-[50px] border-b border">
+    <Section className=" py-[50px] ">
       {/* 1. Parent set to a 1x1 grid */}
       <div className="h-full grid grid-cols-1 grid-rows-1 justify-center items-center">
         {/* 2. Background Layer: Assigned to row 1, column 1 */}

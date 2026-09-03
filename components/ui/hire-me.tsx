@@ -24,7 +24,7 @@ const HireMe = () => {
           <p className="text-headline">Part-time. Full-time. Freelance</p>
         </div>
         <div className=" grid grid-cols-1 md:grid-cols-3 gap-4 w-full ">
-          <Link href="/request-quote">
+          <Link href="/request-a-quote">
             <FeatureCard image="/images/estimate.png" alt="calculator">
               Request a quote
             </FeatureCard>
