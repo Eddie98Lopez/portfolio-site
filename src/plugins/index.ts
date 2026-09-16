@@ -1,4 +1,5 @@
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
+import { s3Storage } from '@payloadcms/storage-s3'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
@@ -86,6 +87,19 @@ export const plugins: Plugin[] = [
     searchOverrides: {
       fields: ({ defaultFields }) => {
         return [...defaultFields, ...searchFields]
+      },
+    },
+  }),
+  s3Storage({
+    collections: { media: true },
+    bucket: process.env.S3_BUCKET!,
+    config: {
+      forcePathStyle: true, // required for Supabase
+      region: process.env.S3_REGION!,
+      endpoint: process.env.S3_ENDPOINT!,
+      credentials: {
+        accessKeyId: process.env.S3_ACCESS_KEY!,
+        secretAccessKey: process.env.S3_SECRET_KEY!,
       },
     },
   }),
