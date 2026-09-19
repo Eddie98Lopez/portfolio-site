@@ -13,6 +13,7 @@ import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
+import { Projects } from './collections/Projects'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
@@ -64,7 +65,7 @@ export default buildConfig({
     pool: { connectionString: process.env.DATABASE_URI },
     schemaName: 'payload',
   }),
-  collections: [Pages, Posts, Media, Categories, Users, Contacts, Organizations],
+  collections: [Pages, Posts, Projects, Media, Categories, Users, Contacts, Organizations],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins,

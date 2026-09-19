@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     pages: Page;
     posts: Post;
+    projects: Project;
     media: Media;
     categories: Category;
     users: User;
@@ -93,6 +94,7 @@ export interface Config {
   collectionsSelect: {
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
+    projects: ProjectsSelect<false> | ProjectsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -778,17 +780,82 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contacts".
+ * via the `definition` "projects".
  */
-export interface Contact {
+export interface Project {
   id: number;
-  firstName: string;
-  lastName?: string | null;
-  email: string;
-  phone?: string | null;
-  role?: string | null;
+  title: string;
+  heroImage?: (number | null) | Media;
+  /**
+   * One or two sentences for project cards / listing previews.
+   */
+  shortDescription?: string | null;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  relatedProjects?: (number | Project)[] | null;
+  client?: (number | null) | Organization;
+  /**
+   * Optional. Limited to contacts at the selected client.
+   */
+  clientContact?: (number | null) | Contact;
+  technologies?:
+    ('wix-velo' | 'nextjs' | 'react' | 'tailwind' | 'shadcn' | 'supabase' | 'stripe' | 'payload' | 'figma')[] | null;
+  /**
+   * Live demo, GitHub, Figma, etc. Drag to reorder.
+   */
+  links?:
+    | {
+        type: 'live' | 'github' | 'figma' | 'caseStudy' | 'other';
+        /**
+         * Optional. e.g. "Frontend repo". Falls back to the type.
+         */
+        label?: string | null;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  /**
+   * Year the project shipped.
+   */
+  year?: number | null;
+  /**
+   * The project itself is still being built. Different from draft/published below.
+   */
+  wip?: boolean | null;
+  /**
+   * Surface on the homepage / featured lists.
+   */
+  featured?: boolean | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -806,6 +873,20 @@ export interface Organization {
    */
   primaryContact?: (number | null) | Contact;
   contacts?: (number | Contact)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contacts".
+ */
+export interface Contact {
+  id: number;
+  firstName: string;
+  lastName?: string | null;
+  email: string;
+  phone?: string | null;
+  role?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1006,6 +1087,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'posts';
         value: number | Post;
+      } | null)
+    | ({
+        relationTo: 'projects';
+        value: number | Project;
       } | null)
     | ({
         relationTo: 'media';
@@ -1249,6 +1334,44 @@ export interface PostsSelect<T extends boolean = true> {
         id?: T;
         name?: T;
       };
+  generateSlug?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects_select".
+ */
+export interface ProjectsSelect<T extends boolean = true> {
+  title?: T;
+  heroImage?: T;
+  shortDescription?: T;
+  content?: T;
+  relatedProjects?: T;
+  client?: T;
+  clientContact?: T;
+  technologies?: T;
+  links?:
+    | T
+    | {
+        type?: T;
+        label?: T;
+        url?: T;
+        id?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  publishedAt?: T;
+  year?: T;
+  wip?: T;
+  featured?: T;
   generateSlug?: T;
   slug?: T;
   updatedAt?: T;
@@ -1825,6 +1948,10 @@ export interface TaskSchedulePublish {
       | ({
           relationTo: 'posts';
           value: number | Post;
+        } | null)
+      | ({
+          relationTo: 'projects';
+          value: number | Project;
         } | null);
     global?: string | null;
     user?: (number | null) | User;
@@ -1866,6 +1993,34 @@ export interface CodeBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'code';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock".
+ */
+export interface GalleryBlock {
+  layout?: ('grid' | 'twoColumn' | 'masonry' | 'carousel') | null;
+  /**
+   * Columns on desktop. Ignored for two-column and carousel.
+   */
+  columns?: ('2' | '3' | '4') | null;
+  /**
+   * Drag to reorder. Order here is the order rendered.
+   */
+  items?:
+    | {
+        image: number | Media;
+        caption?: string | null;
+        /**
+         * How many grid columns this image occupies.
+         */
+        span?: ('1' | '2' | 'full') | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'gallery';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
