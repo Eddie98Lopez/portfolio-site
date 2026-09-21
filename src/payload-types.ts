@@ -727,6 +727,19 @@ export interface Form {
             blockName?: string | null;
             blockType: 'textarea';
           }
+        | {
+            /**
+             * Heading shown at the top of this step.
+             */
+            title: string;
+            /**
+             * Optional intro text for this step.
+             */
+            description?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'pageBreak';
+          }
       )[]
     | null;
   submitButtonLabel?: string | null;
@@ -1665,6 +1678,14 @@ export interface FormsSelect<T extends boolean = true> {
               width?: T;
               defaultValue?: T;
               required?: T;
+              id?: T;
+              blockName?: T;
+            };
+        pageBreak?:
+          | T
+          | {
+              title?: T;
+              description?: T;
               id?: T;
               blockName?: T;
             };

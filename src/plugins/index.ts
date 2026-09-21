@@ -13,6 +13,7 @@ import { beforeSyncWithSearch } from '@/search/beforeSync'
 
 import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
+import { PageBreak } from '@/blocks/PageBreak'
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
   return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
@@ -61,6 +62,7 @@ export const plugins: Plugin[] = [
   formBuilderPlugin({
     fields: {
       payment: false,
+      pageBreak: PageBreak,
     },
     formOverrides: {
       admin: {
