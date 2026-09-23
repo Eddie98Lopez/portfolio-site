@@ -6,8 +6,7 @@ import { fileURLToPath } from 'url'
 
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
-import { Contacts } from './collections/CRM/Contacts'
-import { Organizations } from './collections/CRM/Organizations'
+import { Contacts, Services, Organizations, PricingSettings, Products } from './collections/CRM'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
@@ -65,9 +64,20 @@ export default buildConfig({
     pool: { connectionString: process.env.DATABASE_URI },
     schemaName: 'payload',
   }),
-  collections: [Pages, Posts, Projects, Media, Categories, Users, Contacts, Organizations],
+  collections: [
+    Pages,
+    Posts,
+    Projects,
+    Media,
+    Categories,
+    Users,
+    Contacts,
+    Organizations,
+    Services,
+    Products,
+  ],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer],
+  globals: [Header, Footer, PricingSettings],
   plugins,
   secret: process.env.PAYLOAD_SECRET,
   sharp,

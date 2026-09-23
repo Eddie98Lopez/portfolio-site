@@ -235,12 +235,12 @@ export const Projects: CollectionConfig<'projects'> = {
             },
             // ------- SERVICES (stubbed until the Services collection exists) -------
             // Once you build `services`, uncomment:
-            // {
-            //   name: 'services',
-            //   type: 'relationship',
-            //   relationTo: 'services',
-            //   hasMany: true,
-            // },
+            {
+              name: 'services',
+              type: 'relationship',
+              relationTo: 'services',
+              hasMany: true,
+            },
           ],
         },
         // -------------------------------------------------------------------- SEO

@@ -75,6 +75,8 @@ export interface Config {
     users: User;
     contacts: Contact;
     organizations: Organization;
+    services: Service;
+    products: Product;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -100,6 +102,8 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     contacts: ContactsSelect<false> | ContactsSelect<true>;
     organizations: OrganizationsSelect<false> | OrganizationsSelect<true>;
+    services: ServicesSelect<false> | ServicesSelect<true>;
+    products: ProductsSelect<false> | ProductsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -118,10 +122,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    'pricing-settings': PricingSetting;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'pricing-settings': PricingSettingsSelect<false> | PricingSettingsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -860,6 +866,7 @@ export interface Project {
         id?: string | null;
       }[]
     | null;
+  services?: (number | Service)[] | null;
   meta?: {
     title?: string | null;
     /**
@@ -930,6 +937,91 @@ export interface Contact {
    */
   consentSource?: string | null;
   tags?: string[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services".
+ */
+export interface Service {
+  id: number;
+  name: string;
+  /**
+   * Auto-generated from the name if left blank.
+   */
+  slug: string;
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: number;
+  /**
+   * Auto-generated from the name if left blank.
+   */
+  slug: string;
+  service: number | Service;
+  type: 'core' | 'addon';
+  /**
+   * Uncheck to retire without deleting.
+   */
+  active?: boolean | null;
+  sortOrder?: number | null;
+  name: string;
+  /**
+   * One or two sentences. What it is and why it matters.
+   */
+  summary?: string | null;
+  /**
+   * What's involved: activities, sessions, revision rounds.
+   */
+  scope?: string | null;
+  /**
+   * What the client walks away with.
+   */
+  deliverables?:
+    | {
+        item: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * What this explicitly does NOT include.
+   */
+  exclusions?:
+    | {
+        item: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Core products this add-on attaches to. Leave empty if it works with anything.
+   */
+  availableWith?: (number | Product)[] | null;
+  estHours?: number | null;
+  /**
+   * Money you pay out: contractors, licenses, stock.
+   */
+  externalCost?: number | null;
+  unit?: ('flat' | 'each') | null;
+  unitLabel?: string | null;
+  /**
+   * Hours × floor rate + external cost. Never quote below this.
+   */
+  floorPrice?: number | null;
+  /**
+   * Floor × target multiplier. A baseline, not the quote.
+   */
+  targetPrice?: number | null;
+  /**
+   * Private: outsourcing options, gotchas, how you actually run it.
+   */
+  operationalNotes?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1154,6 +1246,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'organizations';
         value: number | Organization;
+      } | null)
+    | ({
+        relationTo: 'services';
+        value: number | Service;
+      } | null)
+    | ({
+        relationTo: 'products';
+        value: number | Product;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1404,6 +1504,7 @@ export interface ProjectsSelect<T extends boolean = true> {
         url?: T;
         id?: T;
       };
+  services?: T;
   meta?:
     | T
     | {
@@ -1587,6 +1688,53 @@ export interface OrganizationsSelect<T extends boolean = true> {
   postalCode?: T;
   primaryContact?: T;
   contacts?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services_select".
+ */
+export interface ServicesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products_select".
+ */
+export interface ProductsSelect<T extends boolean = true> {
+  slug?: T;
+  service?: T;
+  type?: T;
+  active?: T;
+  sortOrder?: T;
+  name?: T;
+  summary?: T;
+  scope?: T;
+  deliverables?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  exclusions?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  availableWith?: T;
+  estHours?: T;
+  externalCost?: T;
+  unit?: T;
+  unitLabel?: T;
+  floorPrice?: T;
+  targetPrice?: T;
+  operationalNotes?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1955,6 +2103,24 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pricing-settings".
+ */
+export interface PricingSetting {
+  id: number;
+  /**
+   * Your minimum effective hourly rate. Product floor = est. hours × this + external costs.
+   */
+  floorRate: number;
+  /**
+   * Target price = floor × this. 1.3 means 30% above floor.
+   */
+  targetMultiplier: number;
+  currency?: ('USD' | 'EUR' | 'GBP' | 'CAD') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1995,6 +2161,18 @@ export interface FooterSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pricing-settings_select".
+ */
+export interface PricingSettingsSelect<T extends boolean = true> {
+  floorRate?: T;
+  targetMultiplier?: T;
+  currency?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
