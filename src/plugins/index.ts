@@ -11,10 +11,12 @@ import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/
 import { searchFields } from '@/search/fieldOverrides'
 import { beforeSyncWithSearch } from '@/search/beforeSync'
 import { createContactFromSubmission } from '@/hooks/createContactFromSubmission'
+import { FirstName } from '@/blocks/Form/FirstName'
 
 import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
 import { PageBreak } from '@/blocks/PageBreak'
+import { OptIn } from '@/blocks/Form/OptIn'
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
   return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
@@ -64,6 +66,8 @@ export const plugins: Plugin[] = [
     fields: {
       payment: false,
       pageBreak: PageBreak,
+      firstName: FirstName,
+      optIn: OptIn,
     },
     formOverrides: {
       admin: {

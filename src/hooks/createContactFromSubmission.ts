@@ -34,9 +34,9 @@ export const createContactFromSubmission: CollectionAfterChangeHook = async ({
       ]),
     )
 
-    payload.logger.info({ data, msg: 'Contact form submission data' })
-
     if (!data.email) return doc
+
+    const wantsMarketing = String(data.marketingConsent) === 'true'
 
     // Avoid duplicate contacts: update if the email already exists
     const existing = await payload.find({
@@ -47,25 +47,33 @@ export const createContactFromSubmission: CollectionAfterChangeHook = async ({
       req,
     })
 
-    const contactData = {
-      firstName: data.firstName,
-      lastName: data.lastName,
-      email: data.email,
-      phone: data.phone,
-      message: data.message,
-    }
-
     if (existing.docs.length > 0) {
+      const contact = existing.docs[0]
+
       await payload.update({
         collection: 'contacts',
-        id: existing.docs[0].id,
-        data: contactData,
+        id: contact.id,
+        data: {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          phone: data.phone,
+          tags: Array.from(new Set([...(contact.tags ?? []), 'contact-form'])),
+          // Only upgrade on consent, never downgrade an existing subscriber
+          ...(wantsMarketing && { marketingStatus: 'subscribed' }),
+        },
         req,
       })
     } else {
       await payload.create({
         collection: 'contacts',
-        data: contactData,
+        data: {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          phone: data.phone,
+          tags: ['contact-form'],
+          marketingStatus: wantsMarketing ? 'subscribed' : 'never_subscribed',
+        },
         req,
       })
     }

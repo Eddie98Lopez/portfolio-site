@@ -1,15 +1,5 @@
 import type { Block } from 'payload'
 
-/**
- * Gallery block
- * -------------
- * The stock `MediaBlock` in the website template holds ONE upload. This block
- * holds many, plus the layout knobs your frontend needs to render a grid.
- *
- * Payload only stores the values below — the actual grid is drawn by your
- * React component that maps this block to markup (see the note in the chat
- * reply for an example that reads `layout` / `columns` / `span`).
- */
 export const Gallery: Block = {
   slug: 'gallery',
   interfaceName: 'GalleryBlock',

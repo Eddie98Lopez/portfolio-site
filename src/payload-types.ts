@@ -740,6 +740,26 @@ export interface Form {
             blockName?: string | null;
             blockType: 'pageBreak';
           }
+        | {
+            name: string;
+            label?: string | null;
+            width?: number | null;
+            defaultValue?: string | null;
+            required: boolean;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'firstName';
+          }
+        | {
+            name: string;
+            label?: string | null;
+            width?: number | null;
+            defaultValue?: boolean | null;
+            required?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'optIn';
+          }
       )[]
     | null;
   submitButtonLabel?: string | null;
@@ -900,6 +920,16 @@ export interface Contact {
   email: string;
   phone?: string | null;
   role?: string | null;
+  marketingStatus: 'never_subscribed' | 'pending' | 'subscribed' | 'unsubscribed' | 'cleaned';
+  /**
+   * When the contact opted in to marketing emails.
+   */
+  consentedAt?: string | null;
+  /**
+   * Where the opt-in came from, e.g. the form name.
+   */
+  consentSource?: string | null;
+  tags?: string[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1538,6 +1568,10 @@ export interface ContactsSelect<T extends boolean = true> {
   email?: T;
   phone?: T;
   role?: T;
+  marketingStatus?: T;
+  consentedAt?: T;
+  consentSource?: T;
+  tags?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1686,6 +1720,28 @@ export interface FormsSelect<T extends boolean = true> {
           | {
               title?: T;
               description?: T;
+              id?: T;
+              blockName?: T;
+            };
+        firstName?:
+          | T
+          | {
+              name?: T;
+              label?: T;
+              width?: T;
+              defaultValue?: T;
+              required?: T;
+              id?: T;
+              blockName?: T;
+            };
+        optIn?:
+          | T
+          | {
+              name?: T;
+              label?: T;
+              width?: T;
+              defaultValue?: T;
+              required?: T;
               id?: T;
               blockName?: T;
             };

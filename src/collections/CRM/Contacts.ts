@@ -47,6 +47,46 @@ export const Contacts: CollectionConfig = {
       // One role per contact. If a contact needs a different role per org,
       // you'd need the junction collection back instead.
     },
+    // in your Contacts collection's fields array
+    {
+      name: 'marketingStatus',
+      type: 'select',
+      required: true,
+      defaultValue: 'never_subscribed',
+      options: [
+        { label: 'Never subscribed', value: 'never_subscribed' },
+        { label: 'Pending (awaiting confirmation)', value: 'pending' },
+        { label: 'Subscribed', value: 'subscribed' },
+        { label: 'Unsubscribed', value: 'unsubscribed' },
+        { label: 'Cleaned (bounced)', value: 'cleaned' },
+      ],
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'consentedAt',
+      type: 'date',
+      admin: {
+        position: 'sidebar',
+        readOnly: true,
+        description: 'When the contact opted in to marketing emails.',
+      },
+    },
+    {
+      name: 'consentSource',
+      type: 'text',
+      admin: {
+        position: 'sidebar',
+        readOnly: true,
+        description: 'Where the opt-in came from, e.g. the form name.',
+      },
+    },
+    {
+      name: 'tags',
+      type: 'text',
+      hasMany: true,
+    },
     // ── Optional reverse view ────────────────────────────────────────────────
     // To show which orgs a contact belongs to, add this back AFTER confirming
     // Organizations has a top-level `contacts` hasMany field and restarting the
