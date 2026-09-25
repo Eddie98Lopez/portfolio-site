@@ -2,6 +2,7 @@ import { postgresAdapter } from '@payloadcms/db-postgres'
 import sharp from 'sharp'
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
+import { resendAdapter } from '@payloadcms/email-resend'
 import { fileURLToPath } from 'url'
 
 import { Categories } from './collections/Categories'
@@ -102,4 +103,10 @@ export default buildConfig({
     },
     tasks: [],
   },
+
+  email: resendAdapter({
+    defaultFromAddress: 'no-reply@lopezed.com', // must be on your verified domain
+    defaultFromName: 'Eddie Lopez',
+    apiKey: process.env.RESEND_API_KEY || '',
+  }),
 })
