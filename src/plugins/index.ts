@@ -12,6 +12,8 @@ import { searchFields } from '@/search/fieldOverrides'
 import { beforeSyncWithSearch } from '@/search/beforeSync'
 import { createContactFromSubmission } from '@/hooks/createContactFromSubmission'
 import { FirstName } from '@/blocks/Form/FirstName'
+import { beforeFormEmail } from '@/emails/formEmails'
+import { withEmailTemplateField } from '@/emails/templateField'
 
 import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -69,12 +71,13 @@ export const plugins: Plugin[] = [
       firstName: FirstName,
       optIn: OptIn,
     },
+    beforeEmail: beforeFormEmail,
     formOverrides: {
       admin: {
         group: 'Forms',
       },
       fields: ({ defaultFields }) => {
-        return defaultFields.map((field) => {
+        const fields = defaultFields.map((field) => {
           if ('name' in field && field.name === 'confirmationMessage') {
             return {
               ...field,
@@ -91,8 +94,11 @@ export const plugins: Plugin[] = [
           }
           return field
         })
+
+        return withEmailTemplateField(fields)
       },
     },
+
     formSubmissionOverrides: {
       admin: {
         group: 'Forms',

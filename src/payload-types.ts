@@ -790,6 +790,10 @@ export interface Form {
   };
   emails?:
     | {
+        /**
+         * "Your message" wraps the message below in the brand design. Other branded templates use their own copy and ignore the message.
+         */
+        template?: ('none' | 'brandedMessage' | 'messageReceived') | null;
         emailTo?: string | null;
         cc?: string | null;
         bcc?: string | null;
@@ -1905,6 +1909,7 @@ export interface FormsSelect<T extends boolean = true> {
   emails?:
     | T
     | {
+        template?: T;
         emailTo?: T;
         cc?: T;
         bcc?: T;
