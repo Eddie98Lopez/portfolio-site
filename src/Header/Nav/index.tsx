@@ -20,6 +20,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
             key={i}
             {...link}
             appearance={link.label == 'Contact' ? 'outline' : 'link'}
+            size={link.label == 'Contact' ? 'lg' : 'default'}
             className="uppercase font-bold tracking-wider text-lg"
           />
         )

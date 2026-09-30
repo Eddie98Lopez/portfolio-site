@@ -1,7 +1,9 @@
+'use client'
+import { motion } from 'motion/react'
+import { useState } from 'react'
 import { Button, type ButtonProps } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
 import Link from 'next/link'
-import React from 'react'
 
 import type { Page, Post } from '@/payload-types'
 
@@ -20,7 +22,16 @@ type CMSLinkType = {
   url?: string | null
 }
 
+const item = {
+  display: 'flex',
+  flexDirection: 'column',
+  overflow: 'hidden',
+  height: '1.75em',
+  lineHeight: '1.75em',
+} as const
+
 export const CMSLink: React.FC<CMSLinkType> = (props) => {
+  const [isHovered, setIsHovered] = useState(false)
   const {
     type,
     appearance = 'inline',
@@ -49,8 +60,18 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   if (appearance === 'inline') {
     return (
       <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
-        {label && label}
-        {children && children}
+        <motion.li
+          style={{ ...item, justifyContent: isHovered ? 'flex-end' : 'flex-start' }}
+          onHoverStart={() => setIsHovered(true)}
+          onHoverEnd={() => setIsHovered(false)}
+        >
+          <motion.span layout>
+            {label && label} {children && children}
+          </motion.span>
+          <motion.span layout>
+            {label && label} {children && children}
+          </motion.span>
+        </motion.li>
       </Link>
     )
   }
@@ -58,8 +79,18 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   return (
     <Button asChild className={className} size={size} variant={appearance}>
       <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
-        {label && label}
-        {children && children}
+        <motion.li
+          style={{ ...item, justifyContent: isHovered ? 'flex-end' : 'flex-start' }}
+          onHoverStart={() => setIsHovered(true)}
+          onHoverEnd={() => setIsHovered(false)}
+        >
+          <motion.span layout>
+            {label && label} {children && children}
+          </motion.span>
+          <motion.span layout>
+            {label && label} {children && children}
+          </motion.span>
+        </motion.li>
       </Link>
     </Button>
   )
