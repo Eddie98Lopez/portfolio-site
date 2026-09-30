@@ -450,7 +450,7 @@ html[data-theme='light'] {
    ========================================= */
 .texture {
   position: relative;
-  overflow: hidden;
+
   background-attachment: fixed;
   background-position: center;
   background-size: 1.25rem 1.25rem;

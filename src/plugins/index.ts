@@ -7,7 +7,13 @@ import { searchPlugin } from '@payloadcms/plugin-search'
 import { Plugin } from 'payload'
 import { revalidateRedirects } from '@/hooks/revalidateRedirects'
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
-import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
+import {
+  FixedToolbarFeature,
+  HeadingFeature,
+  lexicalEditor,
+  UnorderedListFeature,
+  OrderedListFeature,
+} from '@payloadcms/richtext-lexical'
 import { searchFields } from '@/search/fieldOverrides'
 import { beforeSyncWithSearch } from '@/search/beforeSync'
 import { createContactFromSubmission } from '@/hooks/createContactFromSubmission'
@@ -87,6 +93,8 @@ export const plugins: Plugin[] = [
                     ...rootFeatures,
                     FixedToolbarFeature(),
                     HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+                    UnorderedListFeature(),
+                    OrderedListFeature(),
                   ]
                 },
               }),
