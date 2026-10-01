@@ -92,7 +92,8 @@
 @theme inline {
   /* font-sans -> PT Mono (body), font-mono -> Mazurquica (display) */
   --font-sans: var(--font-body), var(--font-geist-sans);
-  --font-mono: var(--font-display), var(--font-geist-mono);
+  --font-mono: var(--font-geist-mono);
+  --font-display: mazurquica-vf, impact, 'Haettenschweiler', sans-serif;
 
   /* Radii */
   --radius-sm: calc(var(--radius) - 4px);
@@ -379,10 +380,14 @@
 
 @utility text-headline {
   font-family: var(--font-body);
-  font-size: 2rem;
-  line-height: 1.2;
+  font-size: 1.5rem;
+  line-height: 1;
   font-weight: 600;
   text-transform: uppercase;
+  @media (width >= 48rem) {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
 }
 
 @utility text-title {

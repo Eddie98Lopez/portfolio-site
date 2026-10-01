@@ -1,5 +1,5 @@
-import clsx from 'clsx'
 import React from 'react'
+import { cn } from '@/lib/utils'
 
 interface Props {
   className?: string
@@ -30,7 +30,7 @@ export const Logo = (props: Props) => {
       data-name="Layer 2"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 316.64 298.96"
-      className={clsx('max-w-[9.375rem] w-full h-[34px] fill-white', className)}
+      className={cn('max-w-[9.375rem] w-full h-[34px] fill-white', className)}
     >
       <g id="Layer_1-2" data-name="Layer 1">
         <g>
