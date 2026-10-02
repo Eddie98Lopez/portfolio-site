@@ -7,7 +7,7 @@ function page() {
   return (
     <div>
       <Section>
-        <SectionTitle className="font-(--font-display) text-text-inverse  font-bold leading-[.85]">
+        <SectionTitle>
           Hi I'm <br className="lg:hidden leading-[0]" />
           Eddie
         </SectionTitle>
@@ -35,9 +35,7 @@ function page() {
         </SectionContent>
       </Section>
       <Section>
-        <SectionTitle className="font-(--font-display) text-text-inverse font-bold">
-          Projects
-        </SectionTitle>
+        <SectionTitle>Projects</SectionTitle>
         <SectionContent overlap={20} className="flex flex-col items-center gap-6 mx-auto">
           <div className="grid grid-cols-3 gap-4 w-full container">
             <div className="w-full aspect-1/1 bg-white border-gray-500 rounded-sm"></div>
@@ -65,9 +63,7 @@ function page() {
         </SectionContent>
       </Section>
       <Section>
-        <SectionTitle className="font-(--font-display) text-text-inverse font-bold">
-          About Me
-        </SectionTitle>
+        <SectionTitle>About Me</SectionTitle>
         <SectionContent overlap={70} className="flex flex-col items-center gap-6 mx-auto max-w-2xl">
           <div className="size-120 bg-blue-500"></div>
           <h3 className="text-display-small max-w-2xl text-center">Design Engineer</h3>

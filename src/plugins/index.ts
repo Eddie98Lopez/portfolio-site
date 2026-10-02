@@ -27,7 +27,7 @@ import { PageBreak } from '@/blocks/PageBreak'
 import { OptIn } from '@/blocks/Form/OptIn'
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
-  return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
+  return doc?.title ? `${doc.title} | Eddie Lopez Design Engineer` : 'Eddie Lopez Design Engineer'
 }
 
 const generateURL: GenerateURL<Post | Page> = ({ doc }) => {

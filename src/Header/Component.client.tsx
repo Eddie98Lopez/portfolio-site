@@ -51,7 +51,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       animate={{ y: hidden ? '-100%' : 0, opacity: hidden ? 0 : 1 }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
     >
-      <div className={cn('container py-8 transition-all flex justify-between', scrolled && 'py-5')}>
+      <div
+        className={cn('container py-10 transition-all flex justify-between', scrolled && 'py-5')}
+      >
         <Link href="/">
           <Logo loading="eager" priority="high" className="invert dark:invert-0" />
         </Link>

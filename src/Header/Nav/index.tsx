@@ -14,17 +14,19 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
 
   return (
     <nav className="flex gap-5 items-center">
-      {navItems.map(({ link }, i) => {
-        return (
-          <CMSLink
-            key={i}
-            {...link}
-            appearance={link.label == 'Contact' ? 'outline' : 'link'}
-            size={link.label == 'Contact' ? 'lg' : 'default'}
-            className="uppercase font-bold tracking-wider text-lg"
-          />
-        )
-      })}
+      <div className="hidden lg:flex gap-5 items-center">
+        {navItems.map(({ link }, i) => {
+          return (
+            <CMSLink
+              key={i}
+              {...link}
+              appearance={link.label == 'Contact' ? 'outline' : 'link'}
+              size={link.label == 'Contact' ? 'lg' : 'default'}
+              className="uppercase font-bold tracking-wider text-lg"
+            />
+          )
+        })}
+      </div>
       <div className="block lg:hidden">
         <MobileNav navItems={navItems} />
       </div>

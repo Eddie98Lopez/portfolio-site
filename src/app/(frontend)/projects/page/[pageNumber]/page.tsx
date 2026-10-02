@@ -26,7 +26,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   if (!Number.isInteger(sanitizedPageNumber)) notFound()
 
   const posts = await payload.find({
-    collection: 'posts',
+    collection: 'projects',
     depth: 1,
     limit: 12,
     page: sanitizedPageNumber,
@@ -35,7 +35,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   return (
     <div className="pt-24 pb-24">
-      <PageClient />
+      {/* <PageClient /> */}
       <div className="container mb-16">
         <div className="prose dark:prose-invert max-w-none">
           <h1>Posts</h1>
@@ -72,7 +72,7 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const { totalDocs } = await payload.count({
-    collection: 'posts',
+    collection: 'projects',
     overrideAccess: false,
   })
 

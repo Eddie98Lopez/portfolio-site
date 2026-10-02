@@ -187,7 +187,6 @@
   --radius: 0.25rem;
   --font-size-base: 16px;
   /* renamed from --font-mono so it can't collide with Tailwind's theme var */
-  --font-display: mazurquica-vf, impact, 'Haettenschweiler', sans-serif;
   --font-body: pt-mono, 'Courier New', ui-monospace, monospace;
   --grid-size: 1.5rem;
 
