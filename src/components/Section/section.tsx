@@ -40,7 +40,7 @@ export function Section({
 
   return (
     <section
-      className={cn('relative flex flex-col items-center py-8', className)}
+      className={cn('relative flex flex-col items-center py-16', className)}
       style={
         {
           '--section-title-size': `clamp(${minTitleSize / 16}rem, ${fluid}vw, ${max / 16}rem)`,
@@ -97,7 +97,7 @@ export function SectionContent({ overlap = 100, className, style, ...props }: Se
       className={cn(
         'relative z-10 w-full',
         'mt-[calc(var(--section-title-size)*var(--section-cap-ratio)*var(--section-overlap)*-1)]',
-        'mx-auto',
+        'container',
         className,
       )}
       style={{ '--section-overlap': overlap / 100, ...style } as CSSProperties}
