@@ -213,7 +213,7 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | GalleryBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -823,6 +823,38 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock".
+ */
+export interface GalleryBlock {
+  layout?: ('grid' | 'twoColumn' | 'masonry' | 'carousel') | null;
+  /**
+   * Columns on desktop. Ignored for two-column and carousel.
+   */
+  columns?: ('2' | '3' | '4') | null;
+  /**
+   * Height of each tile. Images are cropped to fill.
+   */
+  height?: ('sm' | 'md' | 'lg') | null;
+  /**
+   * Drag to reorder. Order here is the order rendered.
+   */
+  items?:
+    | {
+        image: number | Media;
+        caption?: string | null;
+        /**
+         * How many grid columns this image occupies.
+         */
+        span?: ('1' | '2' | 'full') | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'gallery';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "projects".
  */
 export interface Project {
@@ -1357,6 +1389,7 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        gallery?: T | GalleryBlockSelect<T>;
       };
   meta?:
     | T
@@ -1453,6 +1486,25 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock_select".
+ */
+export interface GalleryBlockSelect<T extends boolean = true> {
+  layout?: T;
+  columns?: T;
+  height?: T;
+  items?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        span?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -2253,34 +2305,6 @@ export interface CodeBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'code';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "GalleryBlock".
- */
-export interface GalleryBlock {
-  layout?: ('grid' | 'twoColumn' | 'masonry' | 'carousel') | null;
-  /**
-   * Columns on desktop. Ignored for two-column and carousel.
-   */
-  columns?: ('2' | '3' | '4') | null;
-  /**
-   * Drag to reorder. Order here is the order rendered.
-   */
-  items?:
-    | {
-        image: number | Media;
-        caption?: string | null;
-        /**
-         * How many grid columns this image occupies.
-         */
-        span?: ('1' | '2' | 'full') | null;
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'gallery';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

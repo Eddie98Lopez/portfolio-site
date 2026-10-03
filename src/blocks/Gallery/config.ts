@@ -35,6 +35,21 @@ export const Gallery: Block = {
       ],
     },
     {
+      name: 'height',
+      type: 'select',
+      defaultValue: 'md',
+      admin: {
+        description: 'Height of each tile. Images are cropped to fill.',
+        condition: (_, siblingData) =>
+          siblingData?.layout === 'grid' || siblingData?.layout === 'twoColumn',
+      },
+      options: [
+        { label: 'Small', value: 'sm' },
+        { label: 'Medium', value: 'md' },
+        { label: 'Large', value: 'lg' },
+      ],
+    },
+    {
       name: 'items',
       type: 'array',
       minRows: 1,
@@ -61,6 +76,9 @@ export const Gallery: Block = {
           admin: {
             description: 'How many grid columns this image occupies.',
             width: '50%',
+            // Span only applies to grid and two-column layouts.
+            condition: (data, siblingData, { blockData }) =>
+              blockData?.layout === 'grid' || blockData?.layout === 'twoColumn',
           },
           options: [
             { label: '1 column', value: '1' },

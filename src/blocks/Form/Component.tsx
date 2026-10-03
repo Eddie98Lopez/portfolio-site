@@ -21,12 +21,14 @@ export type FormBlockType = {
   introContent?: DefaultTypedEditorState
 }
 
-// NEW: direction-aware slide animation
+// Direction-aware slide animation
 const variants = {
   enter: (dir: number) => ({ x: dir > 0 ? 64 : -64, opacity: 0 }),
   center: { x: 0, opacity: 1 },
   exit: (dir: number) => ({ x: dir > 0 ? -64 : 64, opacity: 0 }),
 }
+
+const transition = { duration: 0.22, ease: 'easeInOut' } as const
 
 export const FormBlock: React.FC<
   {
@@ -48,7 +50,7 @@ export const FormBlock: React.FC<
     formState: { errors },
     handleSubmit,
     register,
-    trigger, // NEW
+    trigger,
   } = formMethods
 
   const [isLoading, setIsLoading] = useState(false)
@@ -58,7 +60,7 @@ export const FormBlock: React.FC<
 
   console.log(formFromProps)
 
-  // NEW: split fields into pages at every `pageBreak` block.
+  // Split fields into pages at every `pageBreak` block.
   // Empty pages (leading/trailing/double breaks) are dropped.
   const pages = useMemo(() => {
     const result: FormFieldBlock[][] = [[]]
@@ -73,14 +75,14 @@ export const FormBlock: React.FC<
     return nonEmpty.length ? nonEmpty : [[]]
   }, [formFromProps?.fields])
 
-  // NEW: page state
+  // Page state
   const [currentStep, setCurrentStep] = useState(0)
   const [direction, setDirection] = useState(0)
   const [isValidating, setIsValidating] = useState(false)
   const isMultiPage = pages.length > 1
   const isLast = currentStep >= pages.length - 1
 
-  // NEW: validate only the current page's fields before advancing
+  // Validate only the current page's fields before advancing
   const handleNext = async () => {
     const names = pages[currentStep]
       .map((field) => ('name' in field ? field.name : undefined))
@@ -101,7 +103,7 @@ export const FormBlock: React.FC<
     setCurrentStep((s) => Math.max(0, s - 1))
   }
 
-  // NEW: Enter on an early page advances instead of submitting
+  // Enter on an early page advances instead of submitting
   const onKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
     if (e.key === 'Enter' && !isLast && !(e.target instanceof HTMLTextAreaElement)) {
       e.preventDefault()
@@ -181,103 +183,115 @@ export const FormBlock: React.FC<
       {enableIntro && introContent && !hasSubmitted && (
         <RichText className="mb-8 lg:mb-12" data={introContent} enableGutter={false} />
       )}
-      <div className="p-4 lg:p-6 border border-border rounded-[0.8rem] bg-background">
-        <FormProvider {...formMethods}>
-          {!isLoading && hasSubmitted && confirmationType === 'message' && (
-            <RichText data={confirmationMessage} />
-          )}
-          {isLoading && !hasSubmitted && <p>Loading, please wait...</p>}
-          {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
-          {!hasSubmitted && (
-            <form
-              id={formID}
-              // NEW: only the last page is allowed to actually submit
-              onSubmit={(e) => {
-                e.preventDefault()
-                if (isLast) void handleSubmit(onSubmit)(e)
-              }}
-              onKeyDown={onKeyDown}
-            >
-              {isMultiPage && (
-                <p className="mb-4 text-sm text-muted-foreground">
-                  Step {currentStep + 1} of {pages.length}
-                </p>
-              )}
 
-              {/* NEW: animated page wrapper; p-1 keeps focus rings from being clipped */}
-              <motion.div layout className="relative overflow-hidden p-1">
-                <AnimatePresence mode="wait" custom={direction} initial={false}>
-                  <motion.div
-                    key={currentStep}
-                    custom={direction}
-                    variants={variants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    transition={{ duration: 0.22, ease: 'easeInOut' }}
-                    className="grid grid-cols-2 gap-x-4 gap-y-6"
-                  >
-                    {pages[currentStep]?.map((field, index) => {
-                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                      const Field: React.FC<any> = fields?.[field.blockType as keyof typeof fields]
-                      const width = 'width' in field ? Number(field.width) : undefined
-                      if (Field) {
-                        return (
-                          <div
-                            className={width === 50 ? 'col-span-2 md:col-span-1' : 'col-span-2'}
-                            key={index}
-                          >
-                            <Field
-                              form={formFromProps}
-                              {...field}
-                              {...formMethods}
-                              control={control}
-                              errors={errors}
-                              register={register}
-                              // grid handles width now; stop <Width> applying max-width %
-                              width={undefined}
-                            />
-                          </div>
-                        )
-                      }
-                      return null
-                    })}
-                  </motion.div>
-                </AnimatePresence>
-              </motion.div>
-
-              {/* NEW: button container */}
-              <div className="mt-6 flex justify-between gap-4">
+      {/* Bordered box animates its height via `layout`.
+          borderRadius goes through `style` so Motion can scale-correct it. */}
+      <motion.div
+        layout
+        style={{ borderRadius: '0.8rem' }}
+        className="p-4 lg:p-6 border border-border bg-background overflow-hidden"
+        transition={transition}
+      >
+        {/* Counter-scales the contents so nothing stretches mid-tween */}
+        <motion.div layout="position" transition={transition}>
+          <FormProvider {...formMethods}>
+            {!isLoading && hasSubmitted && confirmationType === 'message' && (
+              <RichText data={confirmationMessage} />
+            )}
+            {isLoading && !hasSubmitted && <p>Loading, please wait...</p>}
+            {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
+            {!hasSubmitted && (
+              <form
+                id={formID}
+                // Only the last page is allowed to actually submit
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  if (isLast) void handleSubmit(onSubmit)(e)
+                }}
+                onKeyDown={onKeyDown}
+              >
                 {isMultiPage && (
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handlePrev}
-                    disabled={currentStep === 0 || isValidating || isLoading}
-                  >
-                    Previous
-                  </Button>
+                  <p className="mb-4 text-sm text-muted-foreground">
+                    Step {currentStep + 1} of {pages.length}
+                  </p>
                 )}
 
-                {isLast ? (
-                  <Button key="submit-btn" form={formID} type="submit" variant="default">
-                    {submitButtonLabel}
-                  </Button>
-                ) : (
-                  <Button
-                    key="next-btn"
-                    type="button"
-                    onClick={() => void handleNext()}
-                    disabled={isValidating}
-                  >
-                    {isValidating ? 'Checking...' : 'Next'}
-                  </Button>
-                )}
-              </div>
-            </form>
-          )}
-        </FormProvider>
-      </div>
+                {/* Clips the sliding page; p-1 keeps focus rings visible */}
+                <div className="relative overflow-hidden p-1">
+                  <AnimatePresence mode="popLayout" custom={direction} initial={false}>
+                    <motion.div
+                      key={currentStep}
+                      custom={direction}
+                      variants={variants}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                      transition={transition}
+                      className="grid grid-cols-2 gap-x-4 gap-y-6"
+                    >
+                      {pages[currentStep]?.map((field, index) => {
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                        const Field: React.FC<any> =
+                          fields?.[field.blockType as keyof typeof fields]
+                        const width = 'width' in field ? Number(field.width) : undefined
+                        if (Field) {
+                          return (
+                            <div
+                              className={cn('col-span-2', width === 50 && 'md:col-span-1')}
+                              key={index}
+                            >
+                              <Field
+                                form={formFromProps}
+                                {...field}
+                                {...formMethods}
+                                control={control}
+                                errors={errors}
+                                register={register}
+                                // grid handles width now; stop <Width> applying max-width %
+                                width={undefined}
+                              />
+                            </div>
+                          )
+                        }
+                        return null
+                      })}
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+
+                {/* Button container */}
+                <div className="mt-6 flex justify-between gap-4">
+                  {isMultiPage && (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={handlePrev}
+                      disabled={currentStep === 0 || isValidating || isLoading}
+                    >
+                      Previous
+                    </Button>
+                  )}
+
+                  {isLast ? (
+                    <Button key="submit-btn" form={formID} type="submit" variant="default">
+                      {submitButtonLabel}
+                    </Button>
+                  ) : (
+                    <Button
+                      key="next-btn"
+                      type="button"
+                      onClick={() => void handleNext()}
+                      disabled={isValidating}
+                    >
+                      {isValidating ? 'Checking...' : 'Next'}
+                    </Button>
+                  )}
+                </div>
+              </form>
+            )}
+          </FormProvider>
+        </motion.div>
+      </motion.div>
     </div>
   )
 }

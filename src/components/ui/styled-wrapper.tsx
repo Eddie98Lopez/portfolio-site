@@ -34,13 +34,13 @@ export default IdeWrapper
 
 export const StyledWindowWrapper = ({ children }: { children: ReactNode }) => {
   return (
-    <div className=" w-full border-2 min-h-[300px] rounded-lg border-(--border-base) p-3 flex flex-col gap-3 ">
+    <div className=" w-full border-2 min-h-[300px] rounded-lg border-(--border-base) p-2 md:p-3 flex flex-col gap-2 md:gap-3 ">
       <div className="w-full min-h-7 border-2 rounded-sm border-(--border-base) flex items-center gap-2 p-2">
         <div className="size-5 border-2 rounded-3xl"></div>
         <div className="size-5 border-2 rounded-3xl"></div>
         <div className="size-5 border-2 rounded-3xl"></div>
       </div>
-      <div className="border-2 rounded-sm border-(--border-base) h-full w-full lg:p-6 p-3 grow flex flex-col gap-2 ">
+      <div className="border-2 rounded-sm border-(--border-base) h-full w-full lg:p-12 p-3 grow flex flex-col gap-2 ">
         {children}
       </div>
     </div>

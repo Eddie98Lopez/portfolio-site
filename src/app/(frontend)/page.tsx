@@ -1,6 +1,7 @@
 import { generateMetadata } from './[slug]/page'
 import { Section, SectionTitle, SectionContent } from '@/components/Section/section'
 import { Button } from '@/components/ui/button'
+import Image from 'next/image'
 import React from 'react'
 import { StaggerReveal } from '@/components/stagger-reveal'
 
@@ -70,13 +71,20 @@ function page() {
       </Section>
       <Section>
         <SectionTitle>About Me</SectionTitle>
-        <SectionContent overlap={70}>
+        <SectionContent overlap={100}>
           <StaggerReveal
             preset="slower"
             className=" max-w-2xl mx-auto gap-6 flex flex-col items-center"
           >
-            <div className="size-120 bg-blue-500"></div>
-            <h3 className="text-display-small text-center">Design Engineer</h3>
+            <div className="size-100 lg:size-150">
+              <Image
+                alt=" "
+                src="/api/media/file/head-1.png"
+                fill
+                className="drop-shadow-lg drop-shadow-black/50 dark:drop-shadow-black/70 dark:drop-shadow-xl"
+              />
+            </div>
+            <h3 className="text-display-small text-center -mt-16">Design Engineer</h3>
             <p className="text-headline text-center">What the heck is that?</p>
             <p className="text-center">
               I take an idea from brand and interface design all the way through to production

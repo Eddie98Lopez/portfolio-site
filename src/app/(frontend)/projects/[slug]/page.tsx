@@ -67,7 +67,7 @@ export default async function Post({ params: paramsPromise }: Args) {
         <div className="container">
           <StyledWindowWrapper>
             <PostHero post={post} />
-            <RichText className="max-w-[60rem] mx-auto" data={post.content} enableGutter={false} />
+            <RichText className="mx-auto" data={post.content} enableGutter={false} />
             {post.relatedProjects && post.relatedProjects.length > 0 && (
               <RelatedPosts
                 className="mt-12 max-w-[52rem] lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]"
