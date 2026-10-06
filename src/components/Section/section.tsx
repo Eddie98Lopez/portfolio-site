@@ -68,7 +68,7 @@ export function SectionTitle({ as: Tag = 'h2', className, ...props }: SectionTit
   return (
     <Tag
       className={cn(
-        'relative w-full text-center font-display font-bold uppercase text-text-inverse dark:text-text-inverse/30',
+        'relative w-full text-center font-display font-bold uppercase text-text-inverse dark:text-text-inverse/70',
         'text-[length:var(--section-title-size)]',
         '[text-box:trim-both_cap_alphabetic]',
         'leading-[0.85] ',

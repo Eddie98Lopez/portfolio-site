@@ -270,7 +270,7 @@
    ========================================= */
 [data-theme='dark'] {
   --background-subtle: #151719;
-  --background-base: #494d4d;
+  --background-base: #2b2928;
   --background-emphasis: #9b9fa0;
   --surface-subtle: #494d4d;
   --surface-base: #d8d9d9;
@@ -293,7 +293,7 @@
   --info-subtle: #0d5894;
   --info-base: #58aef2;
   --info-emphasis: #c0def6;
-  --text-base: #f6f6f6;
+  --text-base: #d8d9d9;
   --text-secondary: #9b9fa0;
   --text-subtle: #494d4d;
   --text-inverse: #1d1d1d;
@@ -338,7 +338,7 @@
   --chart-5: oklch(0.645 0.246 16.439);
 
   --tex-graph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M24 0H0V24' fill='none' stroke='%23FFFFFF' stroke-opacity='0.16' stroke-width='1'/%3E%3C/svg%3E");
-  --tex-dot: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='2' cy='2' r='1.4' fill='%23FFFFFF' fill-opacity='0.16'/%3E%3C/svg%3E");
+  --tex-dot: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='2' cy='2' r='1.4' fill='%23FFFFFF' fill-opacity='0.12'/%3E%3C/svg%3E");
 }
 
 /* =========================================

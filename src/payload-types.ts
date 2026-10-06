@@ -123,11 +123,13 @@ export interface Config {
     header: Header;
     footer: Footer;
     'pricing-settings': PricingSetting;
+    'social-links': SocialLink;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     'pricing-settings': PricingSettingsSelect<false> | PricingSettingsSelect<true>;
+    'social-links': SocialLinksSelect<false> | SocialLinksSelect<true>;
   };
   locale: null;
   widgets: {
@@ -2178,6 +2180,25 @@ export interface PricingSetting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "social-links".
+ */
+export interface SocialLink {
+  id: number;
+  /**
+   * LinkedIn, Instagram, Facebook, etc. Drag to reorder.
+   */
+  links?:
+    | {
+        platform: 'instagram' | 'linkedin' | 'github' | 'facebook' | 'x' | 'tiktok' | 'youtube';
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -2230,6 +2251,22 @@ export interface PricingSettingsSelect<T extends boolean = true> {
   floorRate?: T;
   targetMultiplier?: T;
   currency?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "social-links_select".
+ */
+export interface SocialLinksSelect<T extends boolean = true> {
+  links?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

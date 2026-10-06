@@ -1,4 +1,5 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { SocialLinks } from './collections/Socials'
 import sharp from 'sharp'
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
@@ -83,7 +84,7 @@ export default buildConfig({
     Products,
   ],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer, PricingSettings],
+  globals: [Header, Footer, PricingSettings, SocialLinks],
   plugins,
   secret: process.env.PAYLOAD_SECRET,
   sharp,
