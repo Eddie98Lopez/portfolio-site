@@ -498,3 +498,6 @@ html[data-theme='light'] {
   background-color: var(--black, #2b2b2b);
   background-blend-mode: color-burn;
 }
+.paper-shadow {
+  filter: drop-shadow(0px -3px 5px rgb(0 0 0 / 0.1));
+}
