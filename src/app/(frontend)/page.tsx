@@ -2,6 +2,7 @@ import { generateMetadata } from './[slug]/page'
 import { Section, SectionTitle, SectionContent } from '@/components/Section/section'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 import { StaggerReveal } from '@/components/stagger-reveal'
 
@@ -22,21 +23,25 @@ function page() {
             <h3 className="text-display-small  text-center">
               I design brands and build the interfaces that carry them.
             </h3>
-            <p className="text-headline">Strategy. Branding. Engineering.</p>
+            <p className="text-headline text-center">Strategy. Branding. Engineering.</p>
             <div className="flex items-center gap-4">
-              <Button
-                size="lg"
-                className="uppercase font-bold text-lg py-6 px-4 font-semibold tracking-wider"
-              >
-                Get in Touch
-              </Button>{' '}
-              <Button
-                size="lg"
-                className="uppercase font-bold text-lg py-6 px-4 font-semibold tracking-wider"
-                variant={'outline'}
-              >
-                View Work
-              </Button>
+              <Link href="/contact">
+                <Button
+                  size="lg"
+                  className="uppercase font-bold text-lg py-6 px-4 font-semibold tracking-wider"
+                >
+                  Get in Touch
+                </Button>
+              </Link>
+              <Link href="/work">
+                <Button
+                  size="lg"
+                  className="uppercase font-bold text-lg py-6 px-4 font-semibold tracking-wider"
+                  variant={'outline'}
+                >
+                  View Work
+                </Button>
+              </Link>
             </div>
           </StaggerReveal>
         </SectionContent>
@@ -93,9 +98,15 @@ function page() {
               first time, I'm the person who carries the whole thing end to end.
             </p>
             <div className="flex items-center gap-4">
-              <Button variant={'link'} size="lg" className="underline uppercase font-bold text-lg">
-                More about Eddie
-              </Button>
+              <Link href="/about">
+                <Button
+                  variant={'link'}
+                  size="lg"
+                  className="underline uppercase font-bold text-lg"
+                >
+                  More about Eddie
+                </Button>
+              </Link>
             </div>
           </StaggerReveal>
         </SectionContent>
