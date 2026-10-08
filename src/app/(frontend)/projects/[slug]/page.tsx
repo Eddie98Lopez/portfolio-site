@@ -11,14 +11,14 @@ import RichText from '@/components/RichText'
 
 import type { Post } from '@/payload-types'
 
-import { PostHero } from '@/heros/PostHero'
+import { ProjectHero } from '@/heros/ProjectHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
-  const posts = await payload.find({
+  const projects = await payload.find({
     collection: 'projects',
     draft: false,
     limit: 1000,
@@ -29,7 +29,7 @@ export async function generateStaticParams() {
     },
   })
 
-  const params = posts.docs.map(({ slug }) => {
+  const params = projects.docs.map(({ slug }) => {
     return { slug }
   })
 
@@ -47,10 +47,10 @@ export default async function Post({ params: paramsPromise }: Args) {
   const { slug = '' } = await paramsPromise
   // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
-  const url = '/posts/' + decodedSlug
-  const post = await queryPostBySlug({ slug: decodedSlug })
+  const url = '/projects/' + decodedSlug
+  const project = await queryPostBySlug({ slug: decodedSlug })
 
-  if (!post) return <PayloadRedirects url={url} />
+  if (!project) return <PayloadRedirects url={url} />
 
   return (
     <article className="pt-8 pb-16">
@@ -61,17 +61,15 @@ export default async function Post({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
-      {/* <PostHero post={post} /> */}
-
       <div className="flex flex-col items-center gap-4">
         <div className="container">
           <StyledWindowWrapper>
-            <PostHero post={post} />
-            <RichText className="mx-auto" data={post.content} enableGutter={false} />
-            {post.relatedProjects && post.relatedProjects.length > 0 && (
+            <ProjectHero project={project} />
+            <RichText className="mx-auto" data={project.content} enableGutter={false} />
+            {project.relatedProjects && project.relatedProjects.length > 0 && (
               <RelatedPosts
                 className="mt-12 max-w-[52rem] lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]"
-                docs={post.relatedProjects.filter((post) => typeof post === 'object')}
+                docs={project.relatedProjects.filter((project) => typeof project === 'object')}
               />
             )}
           </StyledWindowWrapper>
@@ -85,9 +83,9 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const { slug = '' } = await paramsPromise
   // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
-  const post = await queryPostBySlug({ slug: decodedSlug })
+  const project = await queryPostBySlug({ slug: decodedSlug })
 
-  return generateMeta({ doc: post })
+  return generateMeta({ doc: project })
 }
 
 const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {

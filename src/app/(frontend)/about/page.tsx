@@ -9,7 +9,7 @@ function AboutPage() {
     <div>
       <Section>
         <SectionTitle>About Me</SectionTitle>
-        <SectionContent overlap={70} className="container">
+        <SectionContent overlap={50} className="container">
           <div className="max-w-3xl text-center flex flex-col gap-6 mx-auto">
             <div className="bg-gray-200 aspect-16/9 max-w-xl w-full mx-auto border">
               <video
@@ -17,7 +17,7 @@ function AboutPage() {
                 playsInline
                 loop
                 muted
-                className="w-full h-full object-cover object-center grayscale drop-shadow-md"
+                className="w-full h-full object-cover object-center grayscale-50 drop-shadow-md"
               >
                 <source src="/api/media/file/hero.mp4" type="video/mp4"></source>
               </video>
@@ -30,6 +30,16 @@ function AboutPage() {
               engineer too. Now I help businesses and founders bring their ideas to life: From
               branding to production.{' '}
             </p>
+          </div>
+        </SectionContent>
+      </Section>
+      <Section>
+        <SectionTitle>Services</SectionTitle>
+        <SectionContent className="container" overlap={25}>
+          <div className="grid grid-cols-3 gap-4">
+            <div className="aspect-square bg-background-subtle"></div>
+            <div className="aspect-square bg-background-subtle"></div>
+            <div className="aspect-square bg-background-subtle"></div>
           </div>
         </SectionContent>
       </Section>
@@ -86,6 +96,14 @@ function AboutPage() {
             >
               Download Resume
             </Button>
+          </div>
+        </SectionContent>
+      </Section>
+      <Section>
+        <SectionTitle>Book Worm</SectionTitle>
+        <SectionContent className="container" overlap={25}>
+          <div className="w-full max-w-3xl mx-auto flex flex-col items-center">
+            <h2 className="text-display-small">Favorite Books</h2>
           </div>
         </SectionContent>
       </Section>

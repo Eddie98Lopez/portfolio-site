@@ -828,26 +828,12 @@ export interface Form {
  * via the `definition` "GalleryBlock".
  */
 export interface GalleryBlock {
-  layout?: ('grid' | 'twoColumn' | 'masonry' | 'carousel') | null;
   /**
-   * Columns on desktop. Ignored for two-column and carousel.
+   * Media in a row share one height and keep their original proportions. On narrow screens they wrap onto new lines.
    */
-  columns?: ('2' | '3' | '4') | null;
-  /**
-   * Height of each tile. Images are cropped to fill.
-   */
-  height?: ('sm' | 'md' | 'lg') | null;
-  /**
-   * Drag to reorder. Order here is the order rendered.
-   */
-  items?:
+  rows?:
     | {
-        image: number | Media;
-        caption?: string | null;
-        /**
-         * How many grid columns this image occupies.
-         */
-        span?: ('1' | '2' | 'full') | null;
+        media: (number | Media)[];
         id?: string | null;
       }[]
     | null;
@@ -1496,15 +1482,10 @@ export interface FormBlockSelect<T extends boolean = true> {
  * via the `definition` "GalleryBlock_select".
  */
 export interface GalleryBlockSelect<T extends boolean = true> {
-  layout?: T;
-  columns?: T;
-  height?: T;
-  items?:
+  rows?:
     | T
     | {
-        image?: T;
-        caption?: T;
-        span?: T;
+        media?: T;
         id?: T;
       };
   id?: T;
