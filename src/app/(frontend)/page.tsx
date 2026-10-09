@@ -6,12 +6,11 @@ import Link from 'next/link'
 import React from 'react'
 import { StaggerReveal } from '@/components/stagger-reveal'
 import { FormBlock } from '@/blocks/Form/Component'
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
+import { getPayloadClient } from '@/lib/payload'
 import type { Form as FormType } from '@payloadcms/plugin-form-builder/types'
 
 async function page() {
-  const payload = await getPayload({ config: configPromise })
+  const payload = await getPayloadClient()
 
   const form = await payload.findByID({
     collection: 'forms',

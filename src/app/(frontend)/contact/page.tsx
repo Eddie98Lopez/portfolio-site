@@ -1,14 +1,13 @@
 import React from 'react'
 import { Section, SectionContent, SectionTitle } from '@/components/Section/section'
 import { FormBlock } from '@/blocks/Form/Component'
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
+import { getPayloadClient } from '@/lib/payload'
 import type { Form as FormType } from '@payloadcms/plugin-form-builder/types'
 import { StaggerReveal } from '@/components/stagger-reveal'
 import Image from 'next/image'
 
 async function ContactPage() {
-  const payload = await getPayload({ config: configPromise })
+  const payload = await getPayloadClient()
 
   const form = await payload.findByID({
     collection: 'forms',

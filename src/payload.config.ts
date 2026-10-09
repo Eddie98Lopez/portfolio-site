@@ -68,7 +68,7 @@ export default buildConfig({
   editor: defaultLexical,
 
   db: postgresAdapter({
-    pool: { connectionString: process.env.DATABASE_URI },
+    pool: { connectionString: process.env.DATABASE_URI, max: 2 },
     schemaName: 'payload',
   }),
   collections: [
