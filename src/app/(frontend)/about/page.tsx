@@ -2,6 +2,7 @@ import React from 'react'
 import { Section, SectionTitle, SectionContent } from '@/components/Section/section'
 import { timeline_events } from '@/lib/timeline'
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 import Image from 'next/image'
 
 function AboutPage() {
@@ -90,12 +91,15 @@ function AboutPage() {
             ))}
           </div>
           <div className="w-full p-4 mt-8 flex justify-center">
-            <Button
-              className="uppercase text-lg py-6 px-4 font-semibold tracking-wider"
-              size={'lg'}
-            >
-              Download Resume
-            </Button>
+            <Link href="/api/media/file/resume-oct-2026.pdf" download={true}>
+              {' '}
+              <Button
+                className="uppercase text-lg py-6 px-4 font-semibold tracking-wider"
+                size={'lg'}
+              >
+                Download Resume
+              </Button>
+            </Link>
           </div>
         </SectionContent>
       </Section>
