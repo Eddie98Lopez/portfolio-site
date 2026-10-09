@@ -31,12 +31,13 @@ async function page() {
             <div className="w-full max-w-100 aspect-1/1">
               <video
                 autoPlay
+                preload="auto"
                 loop
                 muted
                 playsInline
                 className="drop-shadow-lg  drop-shadow-black/50 object-cover"
               >
-                <source src="/api/media/file/heads-10s.webm" />
+                <source src="/heads-10s.webm" />
               </video>
             </div>
             <h3 className="text-display-small  text-center -mt-10">
