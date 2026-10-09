@@ -5,8 +5,18 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { StaggerReveal } from '@/components/stagger-reveal'
+import { FormBlock } from '@/blocks/Form/Component'
+import { getPayload } from 'payload'
+import configPromise from '@payload-config'
+import type { Form as FormType } from '@payloadcms/plugin-form-builder/types'
 
-function page() {
+async function page() {
+  const payload = await getPayload({ config: configPromise })
+
+  const form = await payload.findByID({
+    collection: 'forms',
+    id: '1', // copy from the URL when editing the form in the admin
+  })
   return (
     <div>
       <Section>
@@ -19,8 +29,18 @@ function page() {
             preset="slower"
             className="mx-auto max-w-2xl flex flex-col items-center gap-6"
           >
-            <div className="size-60 bg-blue-500"></div>
-            <h3 className="text-display-small  text-center">
+            <div className="w-full max-w-100 aspect-1/1">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="drop-shadow-lg  drop-shadow-black/50 object-cover"
+              >
+                <source src="/api/media/file/heads-10s.webm" />
+              </video>
+            </div>
+            <h3 className="text-display-small  text-center -mt-10">
               I design brands and build the interfaces that carry them.
             </h3>
             <p className="text-headline text-center">Strategy. Branding. Engineering.</p>
@@ -116,7 +136,9 @@ function page() {
         <SectionContent overlap={15} className="flex flex-col items-center gap-6 mx-auto">
           <h3 className="text-display-small max-w-2xl text-center">Hire Me {`:)`}</h3>
           <p className="text-headline text-center">Full-time. Part-time. Freelance.</p>
-          <div className="aspect-video w-full bg-white border-border max-w-5xl"></div>
+          <div className="w-full max-w-5xl">
+            <FormBlock form={form as unknown as FormType} enableIntro={false} />
+          </div>
         </SectionContent>
       </Section>
     </div>

@@ -56,7 +56,7 @@ function AboutPage() {
                 key={`timeline_event-${event.id}`}
                 className="grid grid-cols-[auto_1fr] lg:grid-cols-[30rem_2rem_1fr] items-center gap-x-4 gap-y-4 lg:gap-x-8"
               >
-                <div className="col-span-2 lg:col-span-1 relative w-full aspect-5/3 overflow-hidden drop-shadow-sm">
+                <div className="col-span-2 lg:col-span-1 relative w-full aspect-5/3 overflow-hidden drop-shadow-md drop-shadow-black/30">
                   <Image
                     src={event.img_src}
                     alt={event.organization}
