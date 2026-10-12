@@ -1,4 +1,3 @@
-import configPromise from '@payload-config'
 import { getPayloadClient } from '@/lib/payload'
 import { unstable_cache } from 'next/cache'
 

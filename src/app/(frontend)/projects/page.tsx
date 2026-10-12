@@ -4,6 +4,7 @@ import { CollectionArchive } from '@/components/CollectionArchive'
 import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
 import { getPayloadClient } from '@/lib/payload'
+import { Section, SectionContent, SectionTitle } from '@/components/Section/section'
 import React from 'react'
 
 export const dynamic = 'force-static'
@@ -22,34 +23,39 @@ export default async function Page() {
       slug: true,
       categories: true,
       meta: true,
+      featured: true,
     },
   })
 
   return (
-    <div className="pt-24 pb-24">
+    <div className="pb-24">
       {/* <PageClient /> */}
-      <div className="container mb-16">
-        <div className="prose dark:prose-invert max-w-none">
-          <h1>Posts</h1>
-        </div>
-      </div>
+      <Section>
+        <SectionTitle>Featured</SectionTitle>
+        <SectionContent overlap={25}>
+          <CollectionArchive posts={projects.docs.filter((p) => p.featured)} />
+        </SectionContent>
+      </Section>
 
-      <div className="container mb-8">
-        <PageRange
-          collection="projects"
-          currentPage={projects.page}
-          limit={12}
-          totalDocs={projects.totalDocs}
-        />
-      </div>
+      <Section>
+        <SectionTitle>More Work</SectionTitle>
+        <SectionContent overlap={25}>
+          <CollectionArchive posts={projects.docs.filter((p) => !p.featured)} />
+        </SectionContent>
+      </Section>
 
-      {/* <CollectionArchive projects={projects.docs} /> */}
+      <Section>
+        <SectionTitle>Play</SectionTitle>
+        <SectionContent overlap={25}>
+          <CollectionArchive posts={projects.docs.filter((p) => !p.featured)} />
+        </SectionContent>
+      </Section>
 
-      <div className="container">
+      {/* <div className="container">
         {projects.totalPages > 1 && projects.page && (
           <Pagination page={projects.page} totalPages={projects.totalPages} />
         )}
-      </div>
+      </div> */}
     </div>
   )
 }

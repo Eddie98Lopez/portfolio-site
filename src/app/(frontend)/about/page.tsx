@@ -24,18 +24,21 @@ function AboutPage() {
               </video>
             </div>
             <h2 className="text-display-small">I design Therefore I am</h2>
-            <p className="text-headline">Story time ...</p>
+            <p className="text-headline">Design engineer based in Fresno, CA.</p>
             <p>
-              Aww shucks, I’m blushing! Hi, my name is Eddie (or Eduardo). Once upon a time I was a
-              graphic designer but decided I’d make my life even harder and become a software
-              engineer too. Now I help businesses and founders bring their ideas to life: From
-              branding to production.{' '}
+              I studied illustration. Then, in 2020, I watched a startup agency build every site on
+              WordPress themes and decided I wanted real control. So I learned to code. Since then
+              I've designed for a print shop, gone from graphic designer to web developer at a
+              marketing agency, and interned as a software engineer at Cultivated here in Fresno.
+              The stack grew with me: React, Next.js, Tailwind, Payload CMS, Supabase, Stripe,
+              Docker. Now I do both at once: I take a brand and build the component system a team
+              can keep growing. Off the clock, I'm on a Sierra trail or in a Barnes & Noble.
             </p>
           </div>
         </SectionContent>
       </Section>
       <Section>
-        <SectionTitle>Services</SectionTitle>
+        <SectionTitle>Skills</SectionTitle>
         <SectionContent className="container" overlap={25}>
           <div className="grid grid-cols-3 gap-4">
             <div className="aspect-square bg-background-subtle"></div>
@@ -104,7 +107,7 @@ function AboutPage() {
         </SectionContent>
       </Section>
       <Section>
-        <SectionTitle>Book Worm</SectionTitle>
+        <SectionTitle>Bookworm</SectionTitle>
         <SectionContent className="container" overlap={25}>
           <div className="w-full max-w-3xl mx-auto flex flex-col items-center">
             <h2 className="text-display-small">Favorite Books</h2>

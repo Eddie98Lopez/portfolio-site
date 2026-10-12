@@ -1,6 +1,8 @@
 import React from 'react'
 import { Section, SectionContent, SectionTitle } from '@/components/Section/section'
 import { FormBlock } from '@/blocks/Form/Component'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 import { getPayloadClient } from '@/lib/payload'
 import type { Form as FormType } from '@payloadcms/plugin-form-builder/types'
 import { StaggerReveal } from '@/components/stagger-reveal'
@@ -30,9 +32,51 @@ async function ContactPage() {
             </div> */}
             <h3 className="text-display-small max-w-2xl mx-auto text-center">Get in touch</h3>
             <p className="text-headline text-center">Call me, beep me, if you wanna reach me.</p>
-            <div className="lg:max-w-5xl mx-auto">
-              <FormBlock form={form as unknown as FormType} enableIntro={false} />
+            <p className="mx-auto  max-w-2xl text-center">
+              I'm looking for my next role, full-time, part-time, or contract, on a team that needs
+              someone who can design the brand and build the interface. Email is the fastest way to
+              reach me.
+            </p>
+            <div className="max-w-3xl mx-auto grid grid-cols-2 gap-6">
+              <div>
+                <Link
+                  className="flex flex-col items-center bg-green-500"
+                  href="/api/media/file/resume-oct-2026.pdf"
+                  download
+                >
+                  <div className="relative size-100 ">
+                    <Image
+                      fill
+                      alt="resume"
+                      src={'/api/media/file/document.png'}
+                      className="object-cover drop-shadow-lg  drop-shadow-black/50 "
+                    />
+                  </div>
+
+                  <Button variant={'link'}>Download Resume</Button>
+                </Link>
+              </div>
+              <div>
+                <Link
+                  className="flex flex-col items-center bg-green-500"
+                  href="mailto:eduardo@lopezed.com"
+                >
+                  <div className="relative size-100 ">
+                    <Image
+                      fill
+                      alt="envelope"
+                      src={'/api/media/file/message.png'}
+                      className="object-cover drop-shadow-lg  drop-shadow-black/50 object-cover scale-77"
+                    />
+                  </div>
+
+                  <Button variant={'link'}>eduardo@lopezed.com</Button>
+                </Link>
+              </div>
             </div>
+            {/* <div className="lg:max-w-5xl mx-auto">
+              <FormBlock form={form as unknown as FormType} enableIntro={false} />
+            </div> */}
           </StaggerReveal>
         </SectionContent>
       </Section>
