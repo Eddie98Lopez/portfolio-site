@@ -40,7 +40,7 @@ async function ContactPage() {
             <div className="max-w-3xl mx-auto grid grid-cols-2 gap-6">
               <div>
                 <Link
-                  className="flex flex-col items-center bg-green-500"
+                  className="flex flex-col items-center "
                   href="/api/media/file/resume-oct-2026.pdf"
                   download
                 >
@@ -57,10 +57,7 @@ async function ContactPage() {
                 </Link>
               </div>
               <div>
-                <Link
-                  className="flex flex-col items-center bg-green-500"
-                  href="mailto:eduardo@lopezed.com"
-                >
+                <Link className="flex flex-col items-center " href="mailto:eduardo@lopezed.com">
                   <div className="relative size-100 ">
                     <Image
                       fill

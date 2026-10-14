@@ -1,6 +1,7 @@
 import type { Metadata } from 'next/types'
 
 import { CollectionArchive } from '@/components/CollectionArchive'
+import { ProjectsArchive } from '@/components/ProjectsArchive'
 import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
 import { getPayloadClient } from '@/lib/payload'
@@ -33,11 +34,11 @@ export default async function Page() {
       <Section>
         <SectionTitle>Featured</SectionTitle>
         <SectionContent overlap={25}>
-          <CollectionArchive posts={projects.docs.filter((p) => p.featured)} />
+          <ProjectsArchive projects={projects.docs.filter((p) => p.featured)} />
         </SectionContent>
       </Section>
 
-      <Section>
+      {/* <Section>
         <SectionTitle>More Work</SectionTitle>
         <SectionContent overlap={25}>
           <CollectionArchive posts={projects.docs.filter((p) => !p.featured)} />
@@ -49,7 +50,7 @@ export default async function Page() {
         <SectionContent overlap={25}>
           <CollectionArchive posts={projects.docs.filter((p) => !p.featured)} />
         </SectionContent>
-      </Section>
+      </Section> */}
 
       {/* <div className="container">
         {projects.totalPages > 1 && projects.page && (

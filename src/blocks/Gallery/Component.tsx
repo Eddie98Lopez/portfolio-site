@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import { GalleryVideo } from './GalleryVideo'
 
 import type { GalleryBlock as Props, Media } from '@/payload-types'
 import { cn } from '@/utilities/ui'
@@ -24,6 +25,9 @@ export const GalleryBlock: React.FC<Props & { className?: string }> = ({ rows, c
 
   if (resolved.length === 0) return null
 
+  const itemClass =
+    'relative aspect-[var(--ar)] w-full min-w-0 overflow-hidden rounded-lg md:w-auto md:[flex:var(--ar)_1_0%]'
+
   return (
     <div className={cn('not-prose flex flex-col', gap, className)}>
       {resolved.map(({ id, items }) => {
@@ -36,32 +40,17 @@ export const GalleryBlock: React.FC<Props & { className?: string }> = ({ rows, c
             {items.map((m) => {
               const ar = ratio(m)
 
-              return (
-                <div
-                  key={m.id}
-                  // Width grows in proportion to aspect ratio, so every item
-                  // in the row lands on the same height with no cropping.
-                  className="relative aspect-[var(--ar)] w-full min-w-0 overflow-hidden rounded-lg md:w-auto md:[flex:var(--ar)_1_0%]"
-                  style={{ '--ar': ar } as React.CSSProperties}
-                >
-                  {m.mimeType?.startsWith('video/') ? (
-                    <video
-                      src={m.url}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      className="absolute inset-0 h-full w-full object-cover"
-                    />
-                  ) : (
-                    <Image
-                      src={m.url}
-                      alt={m.alt ?? ''}
-                      fill
-                      sizes={`(min-width: 768px) ${Math.round((ar / total) * 100)}vw, 100vw`}
-                      className="object-cover"
-                    />
-                  )}
+              return m.mimeType?.startsWith('video/') ? (
+                <GalleryVideo key={m.id} src={m.url} initialRatio={ar} className={itemClass} />
+              ) : (
+                <div key={m.id} className={itemClass} style={{ '--ar': ar } as React.CSSProperties}>
+                  <Image
+                    src={m.url}
+                    alt={m.alt ?? ''}
+                    fill
+                    sizes={`(min-width: 768px) ${Math.round((ar / total) * 100)}vw, 100vw`}
+                    className="object-cover"
+                  />
                 </div>
               )
             })}
