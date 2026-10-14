@@ -10,6 +10,7 @@ import {
   OrderedListFeature,
   UnorderedListFeature,
 } from '@payloadcms/richtext-lexical'
+import { revalidateProject, revalidateProjectDelete } from './hooks/revalidateProjects'
 
 import {
   MetaDescriptionField,
@@ -333,8 +334,8 @@ export const Projects: CollectionConfig<'projects'> = {
   ],
   hooks: {
     // Mirror your Posts revalidate hooks here once project routes exist:
-    // afterChange: [revalidateProject],
-    // afterDelete: [revalidateDelete],
+    afterChange: [revalidateProject],
+    afterDelete: [revalidateProjectDelete],
   },
   versions: {
     drafts: {
