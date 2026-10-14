@@ -56,7 +56,7 @@ async function page() {
                   Get in Touch
                 </Button>
               </Link>
-              <Link href="/work">
+              <Link href="/projects">
                 <Button
                   size="lg"
                   className="uppercase font-bold text-lg py-6 px-4 font-semibold tracking-wider"
@@ -94,7 +94,7 @@ async function page() {
                 Get in Touch
               </Button>
             </Link>
-            <Link href="/work">
+            <Link href="/projects">
               <Button
                 size="lg"
                 className="uppercase font-bold text-lg py-6 px-4 font-semibold tracking-wider"
