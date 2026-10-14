@@ -122,7 +122,8 @@ async function page() {
                 playsInline
                 className="drop-shadow-lg  drop-shadow-black/50 object-cover"
               >
-                <source src="/heads-10s.webm" />
+                <source src="/heads-10s.mov" type='video/quicktime; codecs="hvc1"' />
+                <source src="/heads-10s.webm" type="video/webm" />
               </video>
             </div>
             <h3 className="text-display-small text-center -mt-8">Design Engineer</h3>
