@@ -18,13 +18,18 @@ export const ProjectCard = ({ project }: { project: ProjectCard }) => {
       className="flex flex-col border border-border rounded-lg group overflow-hidden bg-card hover:cursor-pointer"
       href={`/projects/${project.slug}`}
     >
-      <div className="relative w-full overflow-hidden transition-all transition-500">
-        {!metaImage && <div className="dark:text-(--text-inverse)">No image</div>}
+      <div className="relative w-full aspect-5/3 overflow-hidden">
+        {!metaImage && (
+          <div className="flex h-full items-center justify-center dark:text-(--text-inverse)">
+            No image
+          </div>
+        )}
         {metaImage && typeof metaImage !== 'string' && (
           <Media
             resource={metaImage}
+            fill
             size="33vw"
-            className="transition-transform duration-500 ease-in-out group-hover:scale-110"
+            imgClassName="object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
           />
         )}
       </div>
