@@ -5,9 +5,14 @@ import { Separator } from '@/components/ui/separator'
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
+import { getPayloadClient } from '@/lib/payload'
+import SocialLinksBar from '@/components/social-bar'
 
 export async function Footer() {
   const footerData = await getCachedGlobal('footer', 1)()
+  const payload = await getPayloadClient()
+  const socialLinks = (await payload.findGlobal({ slug: 'social-links' })).links
+  console.log(socialLinks)
 
   const navItems = footerData?.navItems || []
 
@@ -15,9 +20,12 @@ export async function Footer() {
     <div className="paper-shadow mt-auto">
       <footer className="  text-(--text-base) paper pt-8 md:pt-6 lg:pt-4">
         <div className="container py-8 gap-8 flex flex-col items-center  md:flex-row md:flex-wrap md:justify-between">
-          <Link className="w-auto flex flex-start" href="/">
-            <Logo className="w-min size-15 fill-text-base" />
-          </Link>
+          <div className="flex gap-6 items-center">
+            <Link className="w-auto flex flex-start" href="/">
+              <Logo className="w-min size-15 fill-text-base" />
+            </Link>
+            <SocialLinksBar links={socialLinks} />
+          </div>
 
           <ThemeSelector />
           <Separator className="hidden md:block bg-text-base border-text-base border" />
