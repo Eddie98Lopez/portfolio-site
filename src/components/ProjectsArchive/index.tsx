@@ -5,7 +5,7 @@ import type { Project } from '@/payload-types'
 import { Media } from '@/components/Media'
 import Link from 'next/link'
 
-type ProjectCard = Pick<Project, 'id' | 'title' | 'slug' | 'meta' | 'featured'>
+export type ProjectCard = Pick<Project, 'id' | 'title' | 'slug' | 'meta' | 'featured'>
 type Props = {
   projects: ProjectCard[]
 }

@@ -5,6 +5,7 @@ import { ProjectsArchive } from '@/components/ProjectsArchive'
 import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
 import { getPayloadClient } from '@/lib/payload'
+import type { ProjectCard } from '@/components/ProjectsArchive'
 import { Section, SectionContent, SectionTitle } from '@/components/Section/section'
 import React from 'react'
 

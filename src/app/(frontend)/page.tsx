@@ -5,13 +5,22 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { StaggerReveal } from '@/components/stagger-reveal'
 import { getPayloadClient } from '@/lib/payload'
+import { ProjectCard } from '@/components/ProjectsArchive'
 
 async function page() {
   const payload = await getPayloadClient()
 
-  const form = await payload.findByID({
-    collection: 'forms',
-    id: '1', // copy from the URL when editing the form in the admin
+  const projects = await payload.find({
+    collection: 'projects',
+    depth: 1,
+    limit: 12,
+    overrideAccess: false,
+    select: {
+      title: true,
+      slug: true,
+      meta: true,
+      featured: true,
+    },
   })
   return (
     <div>
@@ -63,25 +72,37 @@ async function page() {
       <Section>
         <SectionTitle>Projects</SectionTitle>
         <SectionContent overlap={20} className="flex flex-col items-center gap-6 mx-auto">
-          <StaggerReveal preset="slower" className="grid grid-cols-3 gap-4 w-full container">
-            <div className="w-full aspect-1/1 bg-white border-gray-500 rounded-sm"></div>
-            <div className="w-full aspect-1/1 bg-white border-gray-500 rounded-sm"></div>
-            <div className="w-full aspect-1/1 bg-white border-gray-500 rounded-sm"></div>
+          <StaggerReveal
+            preset="slower"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full container"
+          >
+            {projects.docs.map((project: ProjectCard) => (
+              <div
+                key={`project-card-${project.id}`}
+                className="w-full  overflow-hidden rounded-sm"
+              >
+                <ProjectCard project={project} />
+              </div>
+            ))}
           </StaggerReveal>
-          <div className="flex items-center flex-wrap justify-center gap-4">
-            <Button
-              size="lg"
-              className="uppercase font-bold text-lg py-6 px-4 font-semibold tracking-wider"
-            >
-              Get in Touch
-            </Button>{' '}
-            <Button
-              size="lg"
-              className="uppercase font-bold text-lg py-6 px-4 font-semibold tracking-wider"
-              variant={'outline'}
-            >
-              View all Work
-            </Button>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+            <Link href="/contact">
+              <Button
+                size="lg"
+                className="uppercase font-bold text-lg py-6 px-4 font-semibold tracking-wider"
+              >
+                Get in Touch
+              </Button>
+            </Link>
+            <Link href="/work">
+              <Button
+                size="lg"
+                className="uppercase font-bold text-lg py-6 px-4 font-semibold tracking-wider"
+                variant={'outline'}
+              >
+                View All Work
+              </Button>
+            </Link>
           </div>
         </SectionContent>
       </Section>
