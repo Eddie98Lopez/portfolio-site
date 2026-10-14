@@ -113,7 +113,7 @@ async function page() {
             preset="slower"
             className=" max-w-2xl mx-auto gap-6 flex flex-col items-center"
           >
-            <div className="w-full max-w-100 aspect-1/1">
+            <div className="w-full max-w-100 aspect-1/1 drop-shadow-lg drop-shadow-black/40">
               <video autoPlay preload="auto" loop muted playsInline className="object-cover">
                 <source src="/heads-10s-v2.mov" type='video/quicktime; codecs="hvc1"' />
                 <source src="/heads-10s.webm" type="video/webm" />
