@@ -20,7 +20,7 @@ export async function Footer() {
     <div className="paper-shadow mt-auto">
       <footer className="  text-(--text-base) paper pt-8 md:pt-6 lg:pt-4">
         <div className="container py-8 gap-8 flex flex-col items-center  md:flex-row md:flex-wrap md:justify-between">
-          <div className="flex gap-6 items-center">
+          <div className="flex flex-col lg:flex-row gap-6 items-center md:items-start lg:items-center">
             <Link className="w-auto flex flex-start" href="/">
               <Logo className="w-min size-15 fill-text-base" />
             </Link>
