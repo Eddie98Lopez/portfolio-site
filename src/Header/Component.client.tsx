@@ -16,7 +16,6 @@ interface HeaderClientProps {
 }
 
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
-  const [theme, setTheme] = useState<string | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
 
@@ -32,14 +31,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
 
   useEffect(() => {
     setHeaderTheme(null)
-    setHidden(false) // always show header after navigating
+    setHidden(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
 
-  useEffect(() => {
-    if (headerTheme && headerTheme !== theme) setTheme(headerTheme)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [headerTheme])
+  // Only force the hero's theme while sitting on top of the hero
+  const forcedTheme = !scrolled ? headerTheme : null
 
   return (
     <motion.header
@@ -47,7 +44,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         'sticky top-0 z-20 w-full transition-colors duration-300',
         scrolled && 'bg-background/50 backdrop-blur-md border-b border-border',
       )}
-      {...(theme ? { 'data-theme': theme } : {})}
+      {...(forcedTheme ? { 'data-theme': forcedTheme } : {})}
       animate={{ y: hidden ? '-100%' : 0, opacity: hidden ? 0 : 1 }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
     >
