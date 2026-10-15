@@ -64,7 +64,7 @@ export default function SocialLinksBar({ links }: SocialLinksBarProps) {
               aria-label={platform}
               className="group block"
             >
-              <div className="flex size-10 items-center justify-center rounded-xl text-base transition-all duration-300 hover:bg-neutral-900 hover:text-inverse">
+              <div className="flex size-10 items-center justify-center rounded-xl text-base transition-all duration-300 hover:bg-neutral-900 dark:hover:bg-neutral-300 hover:text-inverse">
                 <Icon className="size-6 group-hover:fill-text-inverse transition-fill" />
               </div>
             </Link>
