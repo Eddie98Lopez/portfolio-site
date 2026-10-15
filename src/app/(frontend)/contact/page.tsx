@@ -37,14 +37,14 @@ async function ContactPage() {
               someone who can design the brand and build the interface. Email is the fastest way to
               reach me.
             </p>
-            <div className="max-w-3xl mx-auto grid grid-cols-2 gap-6">
+            <div className="flex justify-center items-center flex-wrap gap-4">
               <div>
                 <Link
-                  className="flex flex-col items-center "
+                  className="flex flex-col items-center"
                   href="/api/media/file/resume-oct-2026.pdf"
                   download
                 >
-                  <div className="relative size-100 ">
+                  <div className="relative aspect-1/1 w-full lg:size-100 ">
                     <Image
                       fill
                       alt="resume"
@@ -57,8 +57,8 @@ async function ContactPage() {
                 </Link>
               </div>
               <div>
-                <Link className="flex flex-col items-center " href="mailto:eduardo@lopezed.com">
-                  <div className="relative size-100 ">
+                <Link className="flex flex-col items-center" href="mailto:eduardo@lopezed.com">
+                  <div className="relative aspect-1/1 w-full lg:size-100 ">
                     <Image
                       fill
                       alt="envelope"
