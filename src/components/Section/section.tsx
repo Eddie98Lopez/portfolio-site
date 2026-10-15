@@ -64,11 +64,11 @@ type SectionTitleProps = ComponentProps<'h2'> & {
   as?: ElementType
 }
 
-export function SectionTitle({ as: Tag = 'h2', className, ...props }: SectionTitleProps) {
+export function SectionTitle({ as: Tag = 'span', className, ...props }: SectionTitleProps) {
   return (
     <Tag
       className={cn(
-        'relative w-full text-center font-display font-bold uppercase text-text-inverse dark:text-text-inverse',
+        'block relative w-full text-center font-display font-bold uppercase text-text-inverse dark:text-text-inverse',
         'text-[length:var(--section-title-size)]',
         '[text-box:trim-both_cap_alphabetic]',
         'leading-[0.85] ',
