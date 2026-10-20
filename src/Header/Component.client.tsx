@@ -35,7 +35,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
 
-  // Only force the hero's theme while sitting on top of the hero
   const forcedTheme = !scrolled ? headerTheme : null
 
   return (
@@ -47,6 +46,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       {...(forcedTheme ? { 'data-theme': forcedTheme } : {})}
       animate={{ y: hidden ? '-100%' : 0, opacity: hidden ? 0 : 1 }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
+      data-theme={forcedTheme ?? undefined}
     >
       <div
         className={cn('container py-10 transition-all flex justify-between', scrolled && 'py-5')}
