@@ -1,20 +1,39 @@
 const SITE_URL =
   process.env.NEXT_PUBLIC_SERVER_URL ||
-  process.env.VERCEL_PROJECT_PRODUCTION_URL ||
-  'https://example.com'
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : 'https://example.com')
 
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: SITE_URL,
   generateRobotsTxt: true,
-  exclude: ['/posts-sitemap.xml', '/pages-sitemap.xml', '/*', '/posts/*'],
+  exclude: [
+    '/posts-sitemap.xml',
+    '/pages-sitemap.xml',
+    '/projects-sitemap.xml',
+    '/*',
+    '/posts/*',
+    '/projects/*',
+  ],
   robotsTxtOptions: {
     policies: [
-      {
-        userAgent: '*',
-        disallow: '/admin/*',
-      },
+      // Everyone (incl. Googlebot, Bingbot, AI search bots): allow, minus admin
+      { userAgent: '*', allow: '/', disallow: '/admin/*' },
+
+      // Training crawlers: block
+      { userAgent: 'GPTBot', disallow: '/' }, // OpenAI training
+      { userAgent: 'ClaudeBot', disallow: '/' }, // Anthropic training
+      { userAgent: 'Google-Extended', disallow: '/' }, // Gemini training (doesn't affect Google Search)
+      { userAgent: 'Applebot-Extended', disallow: '/' }, // Apple AI training
+      { userAgent: 'meta-externalagent', disallow: '/' }, // Meta AI training
+      { userAgent: 'CCBot', disallow: '/' }, // Common Crawl (widely used for training)
+      { userAgent: 'Bytespider', disallow: '/' }, // ByteDance
     ],
-    additionalSitemaps: [`${SITE_URL}/pages-sitemap.xml`, `${SITE_URL}/posts-sitemap.xml`],
+    additionalSitemaps: [
+      `${SITE_URL}/pages-sitemap.xml`,
+      `${SITE_URL}/posts-sitemap.xml`,
+      `${SITE_URL}/projects-sitemap.xml`,
+    ],
   },
 }

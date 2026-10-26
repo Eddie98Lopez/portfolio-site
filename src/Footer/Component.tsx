@@ -12,7 +12,6 @@ export async function Footer() {
   const footerData = await getCachedGlobal('footer', 1)()
   const payload = await getPayloadClient()
   const socialLinks = (await payload.findGlobal({ slug: 'social-links' })).links
-  console.log(socialLinks)
 
   const navItems = footerData?.navItems || []
 
