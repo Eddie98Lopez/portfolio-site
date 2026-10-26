@@ -1,8 +1,13 @@
+const normalizeUrl = (url) => {
+  if (!url) return null
+  const withProtocol = /^https?:\/\//.test(url) ? url : `https://${url}`
+  return withProtocol.replace(/\/+$/, '')
+}
+
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SERVER_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : 'https://example.com')
+  normalizeUrl(process.env.NEXT_PUBLIC_SERVER_URL) ||
+  normalizeUrl(process.env.VERCEL_PROJECT_PRODUCTION_URL) ||
+  'https://example.com'
 
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
