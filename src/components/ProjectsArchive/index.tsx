@@ -15,7 +15,7 @@ export const ProjectCard = ({ project }: { project: ProjectCard }) => {
   const { description, image: metaImage } = meta || {}
   return (
     <Link
-      className="flex flex-col border border-border rounded-lg group overflow-hidden bg-card hover:cursor-pointer"
+      className="flex flex-col border border-border rounded-lg group overflow-hidden bg-card hover:cursor-pointer h-full"
       href={`/projects/${project.slug}`}
     >
       <div className="relative w-full aspect-5/3 overflow-hidden">
