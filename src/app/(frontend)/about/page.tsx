@@ -1,4 +1,5 @@
 import React from 'react'
+import type { Metadata } from 'next/types'
 import { Section, SectionTitle, SectionContent } from '@/components/Section/section'
 import { timeline_events } from '@/lib/timeline'
 import { Button } from '@/components/ui/button'
@@ -6,6 +7,13 @@ import Link from 'next/link'
 import Image from 'next/image'
 import ScrollTextLines from '@/components/ui/animated/scroll-text-lines'
 import { StaggerReveal } from '@/components/stagger-reveal'
+import { generateMeta } from '@/utilities/generateMeta'
+import { getCachedDocument } from '@/utilities/getDocument'
+
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await getCachedDocument('pages', 'about')()
+  return generateMeta({ doc: page })
+}
 
 function AboutPage() {
   return (

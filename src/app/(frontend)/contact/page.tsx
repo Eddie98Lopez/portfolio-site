@@ -7,6 +7,14 @@ import { getPayloadClient } from '@/lib/payload'
 import type { Form as FormType } from '@payloadcms/plugin-form-builder/types'
 import { StaggerReveal } from '@/components/stagger-reveal'
 import Image from 'next/image'
+import type { Metadata } from 'next/types'
+import { generateMeta } from '@/utilities/generateMeta'
+import { getCachedDocument } from '@/utilities/getDocument'
+
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await getCachedDocument('pages', 'contact')()
+  return generateMeta({ doc: page })
+}
 
 async function ContactPage() {
   const payload = await getPayloadClient()

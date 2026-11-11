@@ -90,9 +90,6 @@ export const metadata: Metadata = {
     'interaction design',
     'portfolio',
   ],
-  alternates: {
-    canonical: '/',
-  },
   openGraph: mergeOpenGraph({
     type: 'website',
     url: SITE.url,

@@ -1,13 +1,14 @@
 import type { Metadata } from 'next/types'
-
-import { CollectionArchive } from '@/components/CollectionArchive'
 import { ProjectsArchive } from '@/components/ProjectsArchive'
-import { PageRange } from '@/components/PageRange'
-import { Pagination } from '@/components/Pagination'
 import { getPayloadClient } from '@/lib/payload'
-import type { ProjectCard } from '@/components/ProjectsArchive'
 import { Section, SectionContent, SectionTitle } from '@/components/Section/section'
-import React from 'react'
+import { generateMeta } from '@/utilities/generateMeta'
+import { getCachedDocument } from '@/utilities/getDocument'
+
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await getCachedDocument('pages', 'projects')()
+  return generateMeta({ doc: page })
+}
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -59,10 +60,4 @@ export default async function Page() {
       </div> */}
     </div>
   )
-}
-
-export function generateMetadata(): Metadata {
-  return {
-    title: `Eddie Lopez Design Engineer Posts`,
-  }
 }
