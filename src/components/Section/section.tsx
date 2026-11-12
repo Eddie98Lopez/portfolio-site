@@ -1,4 +1,6 @@
-import type { CSSProperties, ComponentProps, ElementType } from 'react'
+'use client'
+
+import { type CSSProperties, type ComponentProps } from 'react'
 import { cn } from '@/lib/utils'
 
 /* ----------------------------------------------------------------------------
@@ -52,39 +54,6 @@ export function Section({
     />
   )
 }
-
-/* ----------------------------------------------------------------------------
- * SectionTitle
- * text-box trims the box to [cap top of line 1 → baseline of last line], so:
- *   height = capHeight + (lines − 1) × lineHeight
- * When the title wraps, everything below moves down by exactly one line-height.
- * ------------------------------------------------------------------------- */
-
-type SectionTitleProps = ComponentProps<'h2'> & {
-  as?: ElementType
-}
-
-export function SectionTitle({ as: Tag = 'span', className, ...props }: SectionTitleProps) {
-  return (
-    <Tag
-      className={cn(
-        'block relative w-full text-center font-display font-bold uppercase text-text-inverse dark:text-text-inverse',
-        'text-[length:var(--section-title-size)]',
-        '[text-box:trim-both_cap_alphabetic]',
-        'leading-[0.85] ',
-        className,
-      )}
-      {...props}
-    />
-  )
-}
-
-/* ----------------------------------------------------------------------------
- * SectionContent
- * Pulls itself up by a percentage of the title's cap height, measured from
- * the title's last baseline. 100 = top of content aligns with the cap top
- * of a one-line title.
- * ------------------------------------------------------------------------- */
 
 type SectionContentProps = ComponentProps<'div'> & {
   /** Percentage of the title's cap height to overlap (0–100+). */

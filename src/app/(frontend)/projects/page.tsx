@@ -1,7 +1,7 @@
 import type { Metadata } from 'next/types'
 import { ProjectsArchive } from '@/components/ProjectsArchive'
 import { getPayloadClient } from '@/lib/payload'
-import { Section, SectionContent, SectionTitle } from '@/components/Section/section'
+import { Section, SectionContent, SectionTitle } from '@/components/Section'
 import { generateMeta } from '@/utilities/generateMeta'
 import { getCachedDocument } from '@/utilities/getDocument'
 

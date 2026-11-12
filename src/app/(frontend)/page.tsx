@@ -1,5 +1,5 @@
 import { generateMetadata } from './[slug]/page'
-import { Section, SectionTitle, SectionContent } from '@/components/Section/section'
+import { Section, SectionTitle, SectionContent } from '@/components/Section'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import Link from 'next/link'

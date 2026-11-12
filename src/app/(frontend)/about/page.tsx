@@ -1,6 +1,6 @@
 import React from 'react'
 import type { Metadata } from 'next/types'
-import { Section, SectionTitle, SectionContent } from '@/components/Section/section'
+import { Section, SectionTitle, SectionContent } from '@/components/Section'
 import { timeline_events } from '@/lib/timeline'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'

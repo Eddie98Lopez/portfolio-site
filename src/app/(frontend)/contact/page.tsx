@@ -1,5 +1,5 @@
 import React from 'react'
-import { Section, SectionContent, SectionTitle } from '@/components/Section/section'
+import { Section, SectionContent, SectionTitle } from '@/components/Section'
 import { FormBlock } from '@/blocks/Form/Component'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
