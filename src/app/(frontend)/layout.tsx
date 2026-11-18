@@ -14,6 +14,7 @@ import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
 import { getSocialLinks } from '@/utilities/socialToRecord'
 import { GoogleTagManager } from '@next/third-parties/google'
+import { Analytics } from '@vercel/analytics/next'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -56,6 +57,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
       </head>
       <body className="texture" data-pattern="dot">
+        <Analytics />
         <Providers>
           <AdminBar
             adminBarProps={{

@@ -1,12 +1,6 @@
 'use client'
 
-import {
-  Children,
-  Fragment,
-  type CSSProperties,
-  type ComponentProps,
-  type ElementType,
-} from 'react'
+import { Children, Fragment, type ComponentProps, type ElementType } from 'react'
 import { motion, stagger, useReducedMotion, type Variants } from 'motion/react'
 import { cn } from '@/lib/utils'
 
